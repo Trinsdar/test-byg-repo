@@ -1,31 +1,40 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "byg",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "BYG",
+  "description": "An Adventure and Exploration mod with over 80 new biomes!\nTranslator Credits: Dimiral(Russian), Godzmoline(Simplified Chinese)",
   "authors": [
-    "Me!"
+    "Corgi Taco",
+    "AOCAWOL",
+    "YaBoiChips"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://bygmc.weebly.com/",
+    "sources": "https://github.com/CorgiTaco/BYG",
+    "issues": "https://github.com/CorgiTaco/BYG/issues"
   },
-  "license": "Insert License Here",
-  "icon": "assets/examplemod/icon.png",
+  "license": "Code: LGPLv3\n Assets: All Rights Reserved",
+  "icon": "assets/byg/logo_text.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "corgiaoc.byg.entrypoint.FabricEntryPoint"
+    ],
+    "client": [
+      "corgiaoc.byg.client.ClientEntryPoint"
     ]
   },
+  "mixins": [
+    "byg.mixins.json"
+  ],
   "depends": {
-    "fabricloader": ">=0.7.4",
+    "fabricloader": "*",
     "fabric": "*",
-    "minecraft": ">=1.16.4",
-    "architectury": ">=1.1.55"
+    "minecraft": ">=1.16.5"
   },
   "suggests": {
     "flamingo": "*"
-  }
+  },
+  "accessWidener": "byg.aw"
 }
