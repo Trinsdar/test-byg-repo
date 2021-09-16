@@ -4,8 +4,36 @@ import corgiaoc.byg.BYG;
 import corgiaoc.byg.client.textures.BYGMaterials;
 import corgiaoc.byg.common.properties.BYGBlockProperties;
 import corgiaoc.byg.common.properties.EtherBulbsBlock;
-import corgiaoc.byg.common.properties.blocks.*;
-import corgiaoc.byg.common.properties.blocks.end.*;
+import corgiaoc.byg.common.properties.blocks.BYGCraftingTableBlock;
+import corgiaoc.byg.common.properties.blocks.BYGFlowerBlock;
+import corgiaoc.byg.common.properties.blocks.BYGGrassBlock;
+import corgiaoc.byg.common.properties.blocks.BYGMushroomPlantBlock;
+import corgiaoc.byg.common.properties.blocks.BYGNylium;
+import corgiaoc.byg.common.properties.blocks.BYGOreBlock;
+import corgiaoc.byg.common.properties.blocks.BYGSapling;
+import corgiaoc.byg.common.properties.blocks.BYGTallFlowerBlock;
+import corgiaoc.byg.common.properties.blocks.BaobabFruitBlock;
+import corgiaoc.byg.common.properties.blocks.BlueBerryBush;
+import corgiaoc.byg.common.properties.blocks.BookshelfBlock;
+import corgiaoc.byg.common.properties.blocks.BuddingAmetrineBlock;
+import corgiaoc.byg.common.properties.blocks.CrystalClusterBlock;
+import corgiaoc.byg.common.properties.blocks.DesertOddityPlantBlock;
+import corgiaoc.byg.common.properties.blocks.DesertPlant;
+import corgiaoc.byg.common.properties.blocks.FloweringJacarandaBushBlock;
+import corgiaoc.byg.common.properties.blocks.IndigoJacarandaBushBlock;
+import corgiaoc.byg.common.properties.blocks.JacarandaBushBlock;
+import corgiaoc.byg.common.properties.blocks.end.EtherPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.ImpariusPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.IvisPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.NightshadePlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.SculkPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.ShulkrenPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.StoneEndPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.TallEtherPlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.TallNightshadePlantBlock;
+import corgiaoc.byg.common.properties.blocks.end.TallVentBlock;
+import corgiaoc.byg.common.properties.blocks.end.TheriumCrystalBlock;
+import corgiaoc.byg.common.properties.blocks.end.VentBlock;
 import corgiaoc.byg.common.properties.blocks.end.bulbisgardens.TallBulbisBlock;
 import corgiaoc.byg.common.properties.blocks.end.impariusgrove.FungalImpariusFilamentBlock;
 import corgiaoc.byg.common.properties.blocks.end.impariusgrove.ImpariusMushroomBranchBlock;
@@ -30,9 +58,15 @@ import corgiaoc.byg.common.world.feature.overworld.mushrooms.util.BYGMushroomToH
 import corgiaoc.byg.common.world.feature.overworld.trees.TreeSpawners;
 import corgiaoc.byg.common.world.feature.overworld.trees.util.TreeSpawner;
 import corgiaoc.byg.core.world.BYGConfiguredFeatures;
-import corgiaoc.byg.mixin.access.*;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import corgiaoc.byg.mixin.access.GrassPathBlockAccess;
+import corgiaoc.byg.mixin.access.IronBarsBlockAccess;
+import corgiaoc.byg.mixin.access.PressurePlateBlockAccess;
+import corgiaoc.byg.mixin.access.StairBlockAccess;
+import corgiaoc.byg.mixin.access.TrapDoorBlockAccess;
+import corgiaoc.byg.mixin.access.WoodButtonBlockAccess;
+import corgiaoc.byg.util.ExpectPlatformUtils;
+import me.shedaniel.architectury.registry.BlockProperties;
+import me.shedaniel.architectury.registry.ToolType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -40,7 +74,24 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.GlassBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.NetherSproutsBlock;
+import net.minecraft.world.level.block.PoweredBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SandBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SlimeBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
@@ -611,7 +662,7 @@ public class BYGBlocks {
     public static final Block EMBUR_GEL_VINES_PLANT = createEmburGelVinePlant("embur_gel_vines_plant");
     public static final Block EMBUR_GEL_BRANCH = createEmburGelBranch("embur_gel_branch");
 
-    public static final Block EMBUR_SPROUTS = createBlock(new NetherSproutsBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.NETHER_SPROUTS)), "embur_sprouts");
+    public static final Block EMBUR_SPROUTS = createBlock(new NetherSproutsBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT, MaterialColor.COLOR_CYAN).noCollission().instabreak().sound(SoundType.NETHER_SPROUTS)), "embur_sprouts");
     public static final Block EMBUR_ROOTS = new BYGBlockProperties.BYGEmburPlant("embur_roots");
     public static final Block EMBUR_WART = createNetherMushroomPlant(new BYGMushroomToHugeMushroom.EmburWart(), "embur_wart");
     public static final Block TALL_EMBUR_ROOTS = new BYGBlockProperties.BYGDoubleNetherPlant("tall_embur_roots");
@@ -685,7 +736,7 @@ public class BYGBlocks {
     public static final Block CRYPTIC_STONE_WALL = createStoneWall("cryptic_stone_wall");
     public static final Block CRYPTIC_VENT = createVent("cryptic_vent");
     public static final Block TALL_CRYPTIC_VENT = createTallVent("tall_cryptic_vent");
-    public static final Block CRYPTIC_REDSTONE_ORE = createBlock(new PoweredBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 2).sound(SoundType.NETHER_GOLD_ORE).strength(0.4F, 0.4F).lightLevel((state) -> 13).requiresCorrectToolForDrops()), "cryptic_redstone_ore");
+    public static final Block CRYPTIC_REDSTONE_ORE = createBlock(new PoweredBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE, 2).sound(SoundType.NETHER_GOLD_ORE).strength(0.4F, 0.4F).lightLevel((state) -> 13).requiresCorrectToolForDrops()), "cryptic_redstone_ore");
     public static final Block CRYPTIC_BRAMBLE = createStoneEndPlant("cryptic_bramble");
 
     public static final Block IMPARIUS_MUSHROOM_BLOCK = createImpariusMushroom("imparius_mushroom_block");
@@ -1108,7 +1159,7 @@ public class BYGBlocks {
     public static final Block ETHER_PHYLIUM = createEndDirtSpreadable(BYGBlocks.ETHER_SOIL, MaterialColor.COLOR_MAGENTA, BYGConfiguredFeatures.SpreadableBlockConfigs.ETHER_CONFIG, "ether_phylium");
     public static final Block VERMILION_SCULK = createEndStoneSpreadable(BYGBlocks.ETHER_STONE, MaterialColor.COLOR_RED, BYGConfiguredFeatures.SpreadableBlockConfigs.VERMILION_SCULK_CONFIG, "vermilion_sculk");
     public static final Block SHULKREN_PHYLIUM = createEndStoneSpreadable(Blocks.END_STONE, MaterialColor.COLOR_LIGHT_GREEN, BYGConfiguredFeatures.SpreadableBlockConfigs.SHULKREN_CONFIG, "shulkren_phylium");
-    public static final Block MEADOW_GRASS_PATH = createBlock(GrassPathBlockAccess.create(FabricBlockSettings.of(Material.DIRT).breakByTool(FabricToolTags.SHOVELS).strength(0.65F).sound(SoundType.GRASS).isViewBlocking((state, reader, pos) -> true).isSuffocating((state, reader, pos) -> true)), "meadow_grass_path");
+    public static final Block MEADOW_GRASS_PATH = createBlock(ExpectPlatformUtils.createGrass(BlockProperties.of(Material.DIRT).tool(ToolType.SHOVEL).strength(0.65F).sound(SoundType.GRASS).isViewBlocking((state, reader, pos) -> true).isSuffocating((state, reader, pos) -> true)), "meadow_grass_path");
     public static final Block BULBIS_PHYCELIUM = createEndStoneSpreadable(Blocks.END_STONE, MaterialColor.TERRACOTTA_WHITE, BYGConfiguredFeatures.SpreadableBlockConfigs.BULBIS_CONFIG, "bulbis_phycelium");
     public static final Block IMPARIUS_PHYLIUM = createEndStoneSpreadable(Blocks.END_STONE, MaterialColor.COLOR_CYAN, BYGConfiguredFeatures.SpreadableBlockConfigs.BULBIS_CONFIG, "imparius_phylium");
 
@@ -1116,444 +1167,444 @@ public class BYGBlocks {
 //    public static final Block BORIC_TORCH = createBlock(new BoricTorchBlock(AbstractBlock.Properties.of(Material.WOOD).instabreak().lightLevel((state) -> 14), BoricFlameParticle.BoricParticleData.BORIC), "boric_torch");
 
     static Block createChiseledFungalImpariusSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).breakByTool(FabricToolTags.HOES).sound(SoundType.HONEY_BLOCK).strength(2.0f));
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).tool(ToolType.HOE).sound(SoundType.HONEY_BLOCK).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createChiseledFungalImpariusStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), FabricBlockSettings.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).breakByTool(FabricToolTags.HOES).sound(SoundType.HONEY_BLOCK).strength(2.0f));
+        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).tool(ToolType.HOE).sound(SoundType.HONEY_BLOCK).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createChiseledFungalImpariusWall(String id) {
-        Block createBlock = new WallBlock(FabricBlockSettings.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).breakByTool(FabricToolTags.HOES).sound(SoundType.HONEY_BLOCK).strength(2.0f));
+        Block createBlock = new WallBlock(BlockProperties.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).tool(ToolType.HOE).sound(SoundType.HONEY_BLOCK).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSubzeroCrystalCluster(int light, int i, int j, String id) {
-        Block createBlock = new CrystalClusterBlock(i, j, FabricBlockSettings.of(BYGMaterials.SUBZERO_CRYSTAL).breakByTool(FabricToolTags.PICKAXES, 2).sound(SoundType.GLASS).strength(1.5f).requiresCorrectToolForDrops().noOcclusion().lightLevel((state) -> light));
+        Block createBlock = new CrystalClusterBlock(i, j, BlockProperties.of(BYGMaterials.SUBZERO_CRYSTAL).tool(ToolType.PICKAXE, 2).sound(SoundType.GLASS).strength(1.5f).requiresCorrectToolForDrops().noOcclusion().lightLevel((state) -> light));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createHypogealBlock(String id) {
-        Block createBlock = new HypogealImperiumBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 2).sound(SoundType.GLASS).strength(1.5f).requiresCorrectToolForDrops().lightLevel(litBlockEmission(13)));
+        Block createBlock = new HypogealImperiumBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE, 2).sound(SoundType.GLASS).strength(1.5f).requiresCorrectToolForDrops().lightLevel(litBlockEmission(13)));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createBuddingSubzeroCrystal(String id) {
-        Block createBlock = new BuddingSubzeroCrystalBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_LIGHT_BLUE).breakByTool(FabricToolTags.PICKAXES, 4).sound(SoundType.GLASS).lightLevel((state) -> 8).noDrops().randomTicks().requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 1.5f));
+        Block createBlock = new BuddingSubzeroCrystalBlock(BlockProperties.of(Material.STONE, MaterialColor.COLOR_LIGHT_BLUE).tool(ToolType.PICKAXE, 4).sound(SoundType.GLASS).lightLevel((state) -> 8).noDrops().randomTicks().requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 1.5f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSubzeroCrystalBlock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_LIGHT_BLUE).breakByTool(FabricToolTags.PICKAXES, 2).sound(SoundType.GLASS).lightLevel((state) -> 8).strength(1.5f, 1.5f).requiresCorrectToolForDrops());
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.COLOR_LIGHT_BLUE).tool(ToolType.PICKAXE, 2).sound(SoundType.GLASS).lightLevel((state) -> 8).strength(1.5f, 1.5f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTravertineSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.SNOW).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.STONE, MaterialColor.SNOW).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTravertineStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), FabricBlockSettings.of(Material.STONE, MaterialColor.SNOW).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.STONE, MaterialColor.SNOW).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTravertineWall(String id) {
-        Block createBlock = new WallBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.SNOW).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new WallBlock(BlockProperties.of(Material.STONE, MaterialColor.SNOW).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createScoriaStoneSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_RED).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createScoriaStoneStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_RED).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createScoriaStoneWall(String id) {
-        Block createBlock = new WallBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_RED).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new WallBlock(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createScoriaStonePillar(String id) {
-        Block createBlock = new RotatedPillarBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_RED).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(1.5f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new RotatedPillarBlock(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(1.5f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWailingBellBlossom(String id) {
-        Block createBlock = new WailingBulbBlossomBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.COLOR_PURPLE).breakByTool(FabricToolTags.HOES).sound(SoundType.SHROOMLIGHT).noOcclusion().lightLevel((state) -> 14));
+        Block createBlock = new WailingBulbBlossomBlock(BlockProperties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).tool(ToolType.HOE).sound(SoundType.SHROOMLIGHT).noOcclusion().lightLevel((state) -> 14));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWailingVine(String id) {
-        Block createBlock = new VineBlock(FabricBlockSettings.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.TWISTING_VINES).instabreak().randomTicks().noCollission());
+        Block createBlock = new VineBlock(BlockProperties.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.TWISTING_VINES).instabreak().randomTicks().noCollission());
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWailingPlant(String id) {
-        Block createBlock = new WailingPlantBlock(FabricBlockSettings.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.ROOTS).instabreak().noCollission());
+        Block createBlock = new WailingPlantBlock(BlockProperties.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.ROOTS).instabreak().noCollission());
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEmburGelBlock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.CLAY, MaterialColor.TERRACOTTA_YELLOW).sound(SoundType.HONEY_BLOCK).noOcclusion().speedFactor(1.3f));
+        Block createBlock = new Block(BlockProperties.of(Material.CLAY, MaterialColor.TERRACOTTA_YELLOW).sound(SoundType.HONEY_BLOCK).noOcclusion().speedFactor(1.3f));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEmburGelVine(String id) {
-        Block createBlock = new EmburVineBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.TERRACOTTA_YELLOW).breakByTool(FabricToolTags.HOES).instabreak().randomTicks().sound(SoundType.HONEY_BLOCK).noCollission());
+        Block createBlock = new EmburVineBlock(BlockProperties.of(Material.LEAVES, MaterialColor.TERRACOTTA_YELLOW).tool(ToolType.HOE).instabreak().randomTicks().sound(SoundType.HONEY_BLOCK).noCollission());
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEmburGelVinePlant(String id) {
-        Block createBlock = new EmburVinePlantBlock(FabricBlockSettings.of(Material.LEAVES, MaterialColor.TERRACOTTA_YELLOW).breakByTool(FabricToolTags.HOES).instabreak().randomTicks().sound(SoundType.HONEY_BLOCK).noCollission());
+        Block createBlock = new EmburVinePlantBlock(BlockProperties.of(Material.LEAVES, MaterialColor.TERRACOTTA_YELLOW).tool(ToolType.HOE).instabreak().randomTicks().sound(SoundType.HONEY_BLOCK).noCollission());
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEmburGelBranch(String id) {
-        Block createBlock = new ImpariusMushroomBranchBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.TERRACOTTA_YELLOW).breakByTool(FabricToolTags.HOES).instabreak().sound(SoundType.HONEY_BLOCK).noOcclusion().noCollission().lightLevel((state) -> 10));
+        Block createBlock = new ImpariusMushroomBranchBlock(BlockProperties.of(Material.REPLACEABLE_PLANT, MaterialColor.TERRACOTTA_YELLOW).tool(ToolType.HOE).instabreak().sound(SoundType.HONEY_BLOCK).noOcclusion().noCollission().lightLevel((state) -> 10));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createArisianBloomBranch(String id) {
-        Block createBlock = new ImpariusMushroomBranchBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_PURPLE).breakByTool(FabricToolTags.HOES).instabreak().sound(SoundType.GRASS).noOcclusion().noCollission().lightLevel((state) -> 10));
+        Block createBlock = new ImpariusMushroomBranchBlock(BlockProperties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_PURPLE).tool(ToolType.HOE).instabreak().sound(SoundType.GRASS).noOcclusion().noCollission().lightLevel((state) -> 10));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTheriumBlock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).sound(SoundType.GLASS).noDrops().lightLevel((state) -> 12).strength(-1.0f, 3.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).sound(SoundType.GLASS).noDrops().lightLevel((state) -> 12).strength(-1.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTheriumGlass(String id) {
-        Block createBlock = new GlassBlock(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).sound(SoundType.GLASS).lightLevel((state) -> 12).noOcclusion().isValidSpawn(BYGBlocks::neverAllowSpawn).isRedstoneConductor(BYGBlocks::isntSolid).isSuffocating(BYGBlocks::isntSolid).isViewBlocking(BYGBlocks::isntSolid).strength(0.4f, 8.0f));
+        Block createBlock = new GlassBlock(BlockProperties.of(Material.GLASS, MaterialColor.COLOR_CYAN).sound(SoundType.GLASS).lightLevel((state) -> 12).noOcclusion().isValidSpawn(BYGBlocks::neverAllowSpawn).isRedstoneConductor(BYGBlocks::isntSolid).isSuffocating(BYGBlocks::isntSolid).isViewBlocking(BYGBlocks::isntSolid).strength(0.4f, 8.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTheriumGlassPane(String id) {
-        Block createBlock = IronBarsBlockAccess.create(FabricBlockSettings.of(Material.GLASS, MaterialColor.COLOR_CYAN).sound(SoundType.GLASS).lightLevel((state) -> 12).noOcclusion().strength(0.4f, 8.0f));
+        Block createBlock = ExpectPlatformUtils.createIronBars(BlockProperties.of(Material.GLASS, MaterialColor.COLOR_CYAN).sound(SoundType.GLASS).lightLevel((state) -> 12).noOcclusion().strength(0.4f, 8.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createChiseledTherium(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createChiseledTheriumStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.PRISMARINE.defaultBlockState(), FabricBlockSettings.copyOf(Blocks.PRISMARINE).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
+        Block createBlock = StairBlockAccess.create(Blocks.PRISMARINE.defaultBlockState(), BlockProperties.copy(Blocks.PRISMARINE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createChiseledTheriumSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createChiseledTheriumWall(String id) {
-        Block createBlock = new WallBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
+        Block createBlock = new WallBlock(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShinyChiseledTherium(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShinyChiseledTheriumStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.PRISMARINE.defaultBlockState(), FabricBlockSettings.copyOf(Blocks.PRISMARINE).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
+        Block createBlock = StairBlockAccess.create(Blocks.PRISMARINE.defaultBlockState(), BlockProperties.copy(Blocks.PRISMARINE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShinyChiseledTheriumSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShinyChiseledTheriumWall(String id) {
-        Block createBlock = new WallBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
+        Block createBlock = new WallBlock(BlockProperties.of(Material.STONE, MaterialColor.COLOR_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFence(String id) {
-        Block createBlock = new FenceBlock(FabricBlockSettings.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = new FenceBlock(BlockProperties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFenceGate(String id) {
-        Block createBlock = new FenceGateBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = new FenceGateBlock(BlockProperties.of(Material.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSand(int dustColor, String id) {
-        Block createBlock = new SandBlock(dustColor, FabricBlockSettings.of(Material.SAND).breakByTool(FabricToolTags.SHOVELS).sound(SoundType.SAND).strength(0.2f));
+        Block createBlock = new SandBlock(dustColor, BlockProperties.of(Material.SAND).tool(ToolType.SHOVEL).sound(SoundType.SAND).strength(0.2f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWoodSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.WOOD).tool(ToolType.PICKAXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createStoneSlab(String id) {
-        Block createBlock = new SlabBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new SlabBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createStoneWall(String id) {
-        Block createBlock = new WallBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new WallBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWoodPressurePlate(String id) {
-        Block createBlock = PressurePlateBlockAccess.create(PressurePlateBlock.Sensitivity.EVERYTHING, FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).noCollission().strength(0.5F));
+        Block createBlock = PressurePlateBlockAccess.create(PressurePlateBlock.Sensitivity.EVERYTHING, BlockProperties.of(Material.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).noCollission().strength(0.5F));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWoodStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Registry.BLOCK.get(new ResourceLocation(BYG.MOD_ID, id.replace("_stairs", "planks"))).defaultBlockState(), FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = StairBlockAccess.create(Registry.BLOCK.get(new ResourceLocation(BYG.MOD_ID, id.replace("_stairs", "planks"))).defaultBlockState(), BlockProperties.copy(Blocks.OAK_PLANKS).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTrapDoor(String id) {
-        Block createBlock = TrapDoorBlockAccess.create(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f, 3.0f).noOcclusion());
+        Block createBlock = TrapDoorBlockAccess.create(BlockProperties.of(Material.WOOD, MaterialColor.COLOR_BROWN).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f).noOcclusion());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createCraftingTable(String id) {
-        Block createBlock = new BYGCraftingTableBlock(FabricBlockSettings.copyOf(Blocks.CRAFTING_TABLE).breakByTool(FabricToolTags.AXES));
+        Block createBlock = new BYGCraftingTableBlock(BlockProperties.copy(Blocks.CRAFTING_TABLE).tool(ToolType.AXE));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWoodButton(String id) {
-        Block createBlock = WoodButtonBlockAccess.create(FabricBlockSettings.of(Material.DECORATION).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).noCollission().strength(0.5F));
+        Block createBlock = WoodButtonBlockAccess.create(BlockProperties.of(Material.DECORATION).tool(ToolType.AXE).sound(SoundType.WOOD).noCollission().strength(0.5F));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createBookshelf(String id) {
-        Block createBlock = new BookshelfBlock(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = new BookshelfBlock(BlockProperties.of(Material.WOOD, MaterialColor.COLOR_BROWN).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDoor(String id) {
-        Block createBlock = DoorBlockAccess.create(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f, 3.0f).noOcclusion());
+        Block createBlock = ExpectPlatformUtils.createDoor(BlockProperties.of(Material.WOOD, MaterialColor.COLOR_BROWN).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f).noOcclusion());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createPlanks(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.WOOD, MaterialColor.COLOR_BROWN).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.WOOD, MaterialColor.COLOR_BROWN).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWood(String id) {
-        Block createBlock = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f));
+        Block createBlock = new RotatedPillarBlock(BlockProperties.of(Material.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createStrippedLog(String id) {
-        Block createBlock = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f));
+        Block createBlock = new RotatedPillarBlock(BlockProperties.of(Material.WOOD, MaterialColor.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createLog(String id) {
-        Block createBlock = new RotatedPillarBlock(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.AXES).sound(SoundType.WOOD).strength(2.0f));
+        Block createBlock = new RotatedPillarBlock(BlockProperties.of(Material.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSoapstone(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTravertine(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.SNOW).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.SNOW).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createNetherStone(MaterialColor color, String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK).strength(0.4f, 0.4f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, color).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK).strength(0.4f, 0.4f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDustedPolishedBlackstoneBricks(String id) {
-        Block createBlock = new Block(FabricBlockSettings.copyOf(Blocks.POLISHED_BLACKSTONE_BRICKS).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createScoria(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_RED).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDacite(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEtherStone(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_CYAN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_CYAN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createRockyStone(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.STONE).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.STONE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createMossyStone(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_GREEN).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_GREEN).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createRedRock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_ORANGE).breakByTool(FabricToolTags.PICKAXES).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_ORANGE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createAmetrineOre(String id) {
-        Block createBlock = new BYGOreBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).breakByTool(FabricToolTags.PICKAXES, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new BYGOreBlock(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).tool(ToolType.PICKAXE, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createBuddingAmetrineOre(String id) {
-        Block createBlock = new BuddingAmetrineBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).breakByTool(FabricToolTags.PICKAXES, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new BuddingAmetrineBlock(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).tool(ToolType.PICKAXE, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createAmetrineBlock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).breakByTool(FabricToolTags.PICKAXES, 4).isSuffocating(BYGBlocks::isntSolid).isViewBlocking(BYGBlocks::isntSolid).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).tool(ToolType.PICKAXE, 4).isSuffocating(BYGBlocks::isntSolid).isViewBlocking(BYGBlocks::isntSolid).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createCampfireBlock(int type, String id) {
-        Block createBlock = new CampfireBlock(true, type, FabricBlockSettings.of(Material.WOOD, MaterialColor.PODZOL).strength(2.0F).sound(SoundType.WOOD).noOcclusion().lightLevel(litBlockEmission(14)));
+        Block createBlock = new CampfireBlock(true, type, BlockProperties.of(Material.WOOD, MaterialColor.PODZOL).strength(2.0F).sound(SoundType.WOOD).noOcclusion().lightLevel(litBlockEmission(14)));
         createBlock(createBlock, id);
         return createBlock;
     }
 
 
     static Block createPendoriteOre(String id) {
-        Block createBlock = new BYGOreBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.TERRACOTTA_PURPLE).breakByTool(FabricToolTags.PICKAXES, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new BYGOreBlock(BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_PURPLE).tool(ToolType.PICKAXE, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createPendoriteBlock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.HEAVY_METAL, MaterialColor.TERRACOTTA_PURPLE).breakByTool(FabricToolTags.PICKAXES, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.HEAVY_METAL, MaterialColor.TERRACOTTA_PURPLE).tool(ToolType.PICKAXE, 4).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createRawPendoriteBlock(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.HEAVY_METAL, MaterialColor.TERRACOTTA_PURPLE).breakByTool(FabricToolTags.PICKAXES, 4).requiresCorrectToolForDrops().sound(SoundType.ANCIENT_DEBRIS).strength(1.5f, 6.0f));
+        Block createBlock = new Block(BlockProperties.of(Material.HEAVY_METAL, MaterialColor.TERRACOTTA_PURPLE).tool(ToolType.PICKAXE, 4).requiresCorrectToolForDrops().sound(SoundType.ANCIENT_DEBRIS).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEmeralditeOre(String id) {
-        Block createBlock = new BYGOreBlock(FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_GREEN).breakByTool(FabricToolTags.PICKAXES, 3).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
+        Block createBlock = new BYGOreBlock(BlockProperties.of(Material.STONE, MaterialColor.COLOR_GREEN).tool(ToolType.PICKAXE, 3).requiresCorrectToolForDrops().sound(SoundType.STONE).strength(1.5f, 6.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createNetherOre(SoundType sound, MaterialColor color, String id) {
-        Block createBlock = new BYGOreBlock(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.PICKAXES, 1).requiresCorrectToolForDrops().sound(sound).strength(3.0f, 3.0f));
+        Block createBlock = new BYGOreBlock(BlockProperties.of(Material.STONE, color).tool(ToolType.PICKAXE, 1).requiresCorrectToolForDrops().sound(sound).strength(3.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createMushroomPlant(BYGHugeMushroom mushroom, String id) {
-        Block createBlock = new BYGMushroomPlantBlock(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks(), mushroom, false);
+        Block createBlock = new BYGMushroomPlantBlock(BlockProperties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks(), mushroom, false);
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createNetherMushroomPlant(BYGHugeMushroom mushroom, String id) {
-        Block createBlock = new BYGMushroomPlantBlock(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks(), mushroom, true);
+        Block createBlock = new BYGMushroomPlantBlock(BlockProperties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks(), mushroom, true);
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFlower(String id, Tag.Named<Block> groundTag) {
-        Block createBlock = new BYGFlowerBlock(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().noOcclusion(), groundTag);
+        Block createBlock = new BYGFlowerBlock(BlockProperties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().noOcclusion(), groundTag);
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         flowerIDs.add(new ResourceLocation(BYG.MOD_ID, id));
@@ -1561,162 +1612,162 @@ public class BYGBlocks {
     }
 
     static Block createTallFlower(String id, Tag.Named<Block> groundTag) {
-        Block createBlock = new BYGTallFlowerBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().noOcclusion(), groundTag);
+        Block createBlock = new BYGTallFlowerBlock(BlockProperties.of(Material.REPLACEABLE_PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().noOcclusion(), groundTag);
         createBlock(createBlock, id);
         flowerIDs.add(new ResourceLocation(BYG.MOD_ID, id));
         return createBlock;
     }
 
     static Block createStoneEndPlant(String id) {
-        Block createBlock = new StoneEndPlantBlock(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks().noOcclusion());
+        Block createBlock = new StoneEndPlantBlock(BlockProperties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks().noOcclusion());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTallBulbis(String id) {
-        Block createBlock = new TallBulbisBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT).sound(SoundType.SHROOMLIGHT).strength(0.0f).noCollission().noOcclusion());
+        Block createBlock = new TallBulbisBlock(BlockProperties.of(Material.REPLACEABLE_PLANT).sound(SoundType.SHROOMLIGHT).strength(0.0f).noCollission().noOcclusion());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createVent(String id) {
-        Block createBlock = new VentBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new VentBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTallVent(String id) {
-        Block createBlock = new TallVentBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = new TallVentBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTheriumCrystal(String id) {
-        Block createBlock = new TheriumCrystalBlock(FabricBlockSettings.of(Material.GLASS).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.GLASS).strength(0.1f).noOcclusion().requiresCorrectToolForDrops().noCollission().lightLevel((state) -> 6));
+        Block createBlock = new TheriumCrystalBlock(BlockProperties.of(Material.GLASS).tool(ToolType.PICKAXE).sound(SoundType.GLASS).strength(0.1f).noOcclusion().requiresCorrectToolForDrops().noCollission().lightLevel((state) -> 6));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createCrystal(String id) {
-        Block createBlock = new CrystalBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.GLASS).strength(0.1f).noOcclusion().requiresCorrectToolForDrops().noCollission().lightLevel((state) -> 6));
+        Block createBlock = new CrystalBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE).sound(SoundType.GLASS).strength(0.1f).noOcclusion().requiresCorrectToolForDrops().noCollission().lightLevel((state) -> 6));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createAmetrineCluster(String id) {
-        Block createBlock = new CrystalClusterBlock(7, 3, FabricBlockSettings.of(BYGMaterials.AMETRINE).breakByTool(FabricToolTags.PICKAXES, 4).sound(SoundType.GLASS).strength(1.5f).randomTicks().requiresCorrectToolForDrops().noCollission().lightLevel((state) -> 6));
+        Block createBlock = new CrystalClusterBlock(7, 3, BlockProperties.of(BYGMaterials.AMETRINE).tool(ToolType.PICKAXE, 4).sound(SoundType.GLASS).strength(1.5f).randomTicks().requiresCorrectToolForDrops().noCollission().lightLevel((state) -> 6));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDullCrystal(String id) {
-        Block createBlock = new CrystalBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sound(SoundType.STONE).strength(0.1f).noOcclusion().noCollission().requiresCorrectToolForDrops());
+        Block createBlock = new CrystalBlock(BlockProperties.of(Material.STONE).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(0.1f).noOcclusion().noCollission().requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSculkGrowth(String id) {
-        Block createBlock = new SculkGrowthBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().randomTicks().noOcclusion().noCollission());
+        Block createBlock = new SculkGrowthBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().randomTicks().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createIvisBulbisPlant(String id) {
-        Block createBlock = new IvisPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
+        Block createBlock = new IvisPlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEtherPlant(String id) {
-        Block createBlock = new EtherPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission());
+        Block createBlock = new EtherPlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTallEtherPlant(String id) {
-        Block createBlock = new TallEtherPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission());
+        Block createBlock = new TallEtherPlantBlock(BlockProperties.of(Material.REPLACEABLE_PLANT).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createNightshadePlant(String id) {
-        Block createBlock = new NightshadePlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
+        Block createBlock = new NightshadePlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTallNightshadePlant(String id) {
-        Block createBlock = new TallNightshadePlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT).sound(SoundType.ROOTS).instabreak().noOcclusion().noCollission());
+        Block createBlock = new TallNightshadePlantBlock(BlockProperties.of(Material.REPLACEABLE_PLANT).sound(SoundType.ROOTS).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSculkPlant(String id) {
-        Block createBlock = new SculkPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
+        Block createBlock = new SculkPlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShulkrenPlant(String id) {
-        Block createBlock = new ShulkrenPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
+        Block createBlock = new ShulkrenPlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createImpariusPlant(String id) {
-        Block createBlock = new ImpariusPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
+        Block createBlock = new ImpariusPlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createOddityDesertPlant(String id) {
-        Block createBlock = new DesertOddityPlantBlock(FabricBlockSettings.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
+        Block createBlock = new DesertOddityPlantBlock(BlockProperties.of(Material.REPLACEABLE_FIREPROOF_PLANT).sound(SoundType.TWISTING_VINES).instabreak().noOcclusion().noCollission());
 //        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWarpedCactus(String id) {
-        Block createBlock = new WarpedCactusBlock(FabricBlockSettings.of(Material.CACTUS).sound(SoundType.WOOL).strength(0.2f).randomTicks().noOcclusion().lightLevel((state) -> 8));
+        Block createBlock = new WarpedCactusBlock(BlockProperties.of(Material.CACTUS).sound(SoundType.WOOL).strength(0.2f).randomTicks().noOcclusion().lightLevel((state) -> 8));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createOddityCactus(String id) {
-        Block createBlock = new OddityCactusBlock(FabricBlockSettings.of(Material.CACTUS).sound(SoundType.WOOL).strength(0.2f).randomTicks().noOcclusion().lightLevel((state) -> 8));
+        Block createBlock = new OddityCactusBlock(BlockProperties.of(Material.CACTUS).sound(SoundType.WOOL).strength(0.2f).randomTicks().noOcclusion().lightLevel((state) -> 8));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createCrimsonBerryBush(String id) {
-        Block createBlock = new CrimsonBerryBushBlock(FabricBlockSettings.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().noCollission());
+        Block createBlock = new CrimsonBerryBushBlock(BlockProperties.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().noCollission());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createBlueBerryBush(String id) {
-        Block createBlock = new BlueBerryBush(FabricBlockSettings.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().noCollission());
+        Block createBlock = new BlueBerryBush(BlockProperties.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().noCollission());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createBaobabFruitBlock(String id) {
-        Block createBlock = new BaobabFruitBlock(FabricBlockSettings.of(Material.PLANT).breakByTool(FabricToolTags.HOES).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().noCollission());
+        Block createBlock = new BaobabFruitBlock(BlockProperties.of(Material.PLANT).tool(ToolType.HOE).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().noCollission());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEtherBulbBlock(String id) {
-        Block createBlock = new EtherBulbsBlock(FabricBlockSettings.of(Material.PLANT).breakByTool(FabricToolTags.HOES).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().lightLevel((state) -> state.getValue(EtherBulbsBlock.AGE) >= 2 ? 15 : 4).noCollission());
+        Block createBlock = new EtherBulbsBlock(BlockProperties.of(Material.PLANT).tool(ToolType.HOE).sound(SoundType.SWEET_BERRY_BUSH).randomTicks().instabreak().lightLevel((state) -> state.getValue(EtherBulbsBlock.AGE) >= 2 ? 15 : 4).noCollission());
 
         createBlock(createBlock, id);
         return createBlock;
@@ -1727,48 +1778,48 @@ public class BYGBlocks {
     }
 
     static Block createNightshadeBerryBush(int lightLevel, String id) {
-        Block createBlock = new NightshadeBerryBushBlock(FabricBlockSettings.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).lightLevel((state) -> lightLevel).randomTicks().instabreak().noCollission());
+        Block createBlock = new NightshadeBerryBushBlock(BlockProperties.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).lightLevel((state) -> lightLevel).randomTicks().instabreak().noCollission());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createSapling(Tag<Block> groundTag, TreeSpawner tree, String id) {
-        Block createBlock = new BYGSapling(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks(), groundTag, tree);
+        Block createBlock = new BYGSapling(BlockProperties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().randomTicks(), groundTag, tree);
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createJacarandaBush(String id) {
-        Block createBlock = new JacarandaBushBlock(FabricBlockSettings.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion());
+        Block createBlock = new JacarandaBushBlock(BlockProperties.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion());
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFloweringJacarandaBush(int taskRange, TreeSpawner tree, String id) {
-        Block createBlock = new FloweringJacarandaBushBlock(FabricBlockSettings.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion(), tree, taskRange);
+        Block createBlock = new FloweringJacarandaBushBlock(BlockProperties.of(Material.PLANT, MaterialColor.COLOR_PURPLE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion(), tree, taskRange);
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createIndigoJacarandaBush(String id) {
-        Block createBlock = new IndigoJacarandaBushBlock(FabricBlockSettings.of(Material.PLANT, MaterialColor.COLOR_BLUE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion());
+        Block createBlock = new IndigoJacarandaBushBlock(BlockProperties.of(Material.PLANT, MaterialColor.COLOR_BLUE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion());
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFloweringIndigoJacarandaBush(int taskRange, TreeSpawner tree, String id) {
-        Block createBlock = new FloweringJacarandaBushBlock(FabricBlockSettings.of(Material.PLANT, MaterialColor.COLOR_BLUE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion(), tree, taskRange);
+        Block createBlock = new FloweringJacarandaBushBlock(BlockProperties.of(Material.PLANT, MaterialColor.COLOR_BLUE).sound(SoundType.SWEET_BERRY_BUSH).noOcclusion(), tree, taskRange);
         createBlock(createBlock, id);
         createPottedBlock(createBlock, id);
         return createBlock;
     }
 
     public static void createPottedBlock(Block blockForPot, String id) {
-        Block createBlock = new FlowerPotBlock(blockForPot, FabricBlockSettings.of(Material.DECORATION).instabreak().noOcclusion());
+        Block createBlock = new FlowerPotBlock(blockForPot, BlockProperties.of(Material.DECORATION).instabreak().noOcclusion());
         Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, "potted_" + id), createBlock);
 //        createBlock.setRegistryName(new ResourceLocation(BYG.MOD_ID, "potted_" + id)); //Forge
         flowerPotBlocks.add(createBlock);
@@ -1776,74 +1827,74 @@ public class BYGBlocks {
     }
 
     static Block createShroomlight(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.GRASS, MaterialColor.COLOR_PURPLE).breakByTool(FabricToolTags.HOES).strength(1.0F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> 14));
+        Block createBlock = new Block(BlockProperties.of(Material.GRASS, MaterialColor.COLOR_PURPLE).tool(ToolType.HOE).strength(1.0F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> 14));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createImpariusVine(String id) {
-        Block createBlock = new ImpariusVineBlock(FabricBlockSettings.of(Material.LEAVES).breakByTool(FabricToolTags.HOES).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
+        Block createBlock = new ImpariusVineBlock(BlockProperties.of(Material.LEAVES).tool(ToolType.HOE).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createImpariusVinePlant(String id) {
-        Block createBlock = new ImpariusVinePlantBlock(FabricBlockSettings.of(Material.LEAVES).breakByTool(FabricToolTags.HOES).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
+        Block createBlock = new ImpariusVinePlantBlock(BlockProperties.of(Material.LEAVES).tool(ToolType.HOE).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createImpariusMushroom(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.GRASS, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.HOES).strength(0.2F).sound(SoundType.TWISTING_VINES).speedFactor(0.5F).jumpFactor(0.5F));
+        Block createBlock = new Block(BlockProperties.of(Material.GRASS, MaterialColor.COLOR_CYAN).tool(ToolType.HOE).strength(0.2F).sound(SoundType.TWISTING_VINES).speedFactor(0.5F).jumpFactor(0.5F));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createImpariusMushroomBranch(String id) {
-        Block createBlock = new ImpariusMushroomBranchBlock(FabricBlockSettings.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_CYAN).breakByTool(FabricToolTags.HOES).instabreak().sound(SoundType.TWISTING_VINES).noOcclusion().noCollission().lightLevel((state) -> 10));
+        Block createBlock = new ImpariusMushroomBranchBlock(BlockProperties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_CYAN).tool(ToolType.HOE).instabreak().sound(SoundType.TWISTING_VINES).noOcclusion().noCollission().lightLevel((state) -> 10));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFungalImpariusFilamentBlock(String id) {
-        Block createBlock = new SlimeBlock(FabricBlockSettings.of(Material.GRASS, MaterialColor.COLOR_LIGHT_BLUE).breakByTool(FabricToolTags.HOES).strength(0.2F).sound(SoundType.HONEY_BLOCK).speedFactor(0.5F).jumpFactor(2.5F).lightLevel((state) -> 15));
+        Block createBlock = new SlimeBlock(BlockProperties.of(Material.GRASS, MaterialColor.COLOR_LIGHT_BLUE).tool(ToolType.HOE).strength(0.2F).sound(SoundType.HONEY_BLOCK).speedFactor(0.5F).jumpFactor(2.5F).lightLevel((state) -> 15));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFungalImpariusFilament(String id) {
-        Block createBlock = new FungalImpariusFilamentBlock(FabricBlockSettings.of(Material.GRASS, MaterialColor.COLOR_LIGHT_BLUE).breakByTool(FabricToolTags.HOES).instabreak().sound(SoundType.HONEY_BLOCK).noOcclusion().noCollission().lightLevel((state) -> 10));
+        Block createBlock = new FungalImpariusFilamentBlock(BlockProperties.of(Material.GRASS, MaterialColor.COLOR_LIGHT_BLUE).tool(ToolType.HOE).instabreak().sound(SoundType.HONEY_BLOCK).noOcclusion().noCollission().lightLevel((state) -> 10));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createFungalImparius(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).breakByTool(FabricToolTags.HOES).strength(0.2F).sound(SoundType.HONEY_BLOCK));
+        Block createBlock = new Block(BlockProperties.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).tool(ToolType.HOE).strength(0.2F).sound(SoundType.HONEY_BLOCK));
         //Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), createBlock);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShulkrenVine(String id) {
-        Block createBlock = new ShulkrenVineBlock(FabricBlockSettings.of(Material.LEAVES).breakByTool(FabricToolTags.HOES).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
+        Block createBlock = new ShulkrenVineBlock(BlockProperties.of(Material.LEAVES).tool(ToolType.HOE).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createShulkrenVinePlant(String id) {
-        Block createBlock = new ShulkrenVinePlantBlock(FabricBlockSettings.of(Material.LEAVES).breakByTool(FabricToolTags.HOES).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
+        Block createBlock = new ShulkrenVinePlantBlock(BlockProperties.of(Material.LEAVES).tool(ToolType.HOE).instabreak().randomTicks().sound(SoundType.WEEPING_VINES).noCollission());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createLeaves(String id) {
-        Block createBlock = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES).breakByTool(FabricToolTags.HOES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false));
+        Block createBlock = new LeavesBlock(BlockProperties.of(Material.LEAVES).tool(ToolType.HOE).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false));
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1853,61 +1904,61 @@ public class BYGBlocks {
     }
 
     static Block createGlowingLeaves(int lightLevel, String id) {
-        Block createBlock = new LeavesBlock(FabricBlockSettings.of(Material.LEAVES).breakByTool(FabricToolTags.HOES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false).lightLevel((state) -> lightLevel));
+        Block createBlock = new LeavesBlock(BlockProperties.of(Material.LEAVES).tool(ToolType.HOE).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false).lightLevel((state) -> lightLevel));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createPetal(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.GRASS).breakByTool(FabricToolTags.HOES).sound(SoundType.GRASS).strength(0.2f).noOcclusion());
+        Block createBlock = new Block(BlockProperties.of(Material.GRASS).tool(ToolType.HOE).sound(SoundType.GRASS).strength(0.2f).noOcclusion());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDirt(String id) {
-        Block createBlock = new Block(FabricBlockSettings.of(Material.DIRT).breakByTool(FabricToolTags.SHOVELS).sound(SoundType.GRAVEL).strength(0.2f).randomTicks());
+        Block createBlock = new Block(BlockProperties.of(Material.DIRT).tool(ToolType.SHOVEL).sound(SoundType.GRAVEL).strength(0.2f).randomTicks());
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDirtSpreadable(Block blockToSpreadToo, MaterialColor color, @Nullable RandomPatchConfiguration featureConfig, String id) {
-        Block createBlock = new BYGGrassBlock(FabricBlockSettings.of(Material.DIRT, color).breakByTool(FabricToolTags.SHOVELS).sound(SoundType.GRASS).strength(0.4f).randomTicks(), featureConfig, blockToSpreadToo);
+        Block createBlock = new BYGGrassBlock(BlockProperties.of(Material.DIRT, color).tool(ToolType.SHOVEL).sound(SoundType.GRASS).strength(0.4f).randomTicks(), featureConfig, blockToSpreadToo);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createStoneSpreadable(Block blockToSpreadToo, MaterialColor color, @Nullable RandomPatchConfiguration featureConfig, String id) {
-        Block createBlock = new BYGGrassBlock(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.PICKAXES, 0).sound(SoundType.STONE).strength(1.5f, 6.0f).randomTicks().requiresCorrectToolForDrops(), featureConfig, blockToSpreadToo);
+        Block createBlock = new BYGGrassBlock(BlockProperties.of(Material.STONE, color).tool(ToolType.PICKAXE, 0).sound(SoundType.STONE).strength(1.5f, 6.0f).randomTicks().requiresCorrectToolForDrops(), featureConfig, blockToSpreadToo);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEndStoneSpreadable(Block blockToSpreadToo, MaterialColor color, @Nullable RandomPatchConfiguration featureConfig, String id) {
-        Block createBlock = new BYGNylium(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.PICKAXES, 0).sound(SoundType.STONE).strength(0.4f).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.END, blockToSpreadToo);
+        Block createBlock = new BYGNylium(BlockProperties.of(Material.STONE, color).tool(ToolType.PICKAXE, 0).sound(SoundType.STONE).strength(0.4f).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.END, blockToSpreadToo);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createEndDirtSpreadable(Block blockToSpreadToo, MaterialColor color, @Nullable RandomPatchConfiguration featureConfig, String id) {
-        Block createBlock = new BYGNylium(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.SHOVELS, 0).sound(SoundType.NYLIUM).strength(0.4f).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.END, blockToSpreadToo);
+        Block createBlock = new BYGNylium(BlockProperties.of(Material.STONE, color).tool(ToolType.SHOVEL, 0).sound(SoundType.NYLIUM).strength(0.4f).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.END, blockToSpreadToo);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createNetherSpreadable(Block blockToSpreadToo, MaterialColor color, @Nullable RandomPatchConfiguration featureConfig, String id) {
-        Block createBlock = new BYGNylium(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.PICKAXES, 0).sound(SoundType.NYLIUM).strength(0.4F).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.NETHER, blockToSpreadToo);
+        Block createBlock = new BYGNylium(BlockProperties.of(Material.STONE, color).tool(ToolType.PICKAXE, 0).sound(SoundType.NYLIUM).strength(0.4F).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.NETHER, blockToSpreadToo);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createNetherStoneSpreadable(Block blockToSpreadToo, MaterialColor color, @Nullable RandomPatchConfiguration featureConfig, String id) {
-        Block createBlock = new BYGNylium(FabricBlockSettings.of(Material.STONE, color).breakByTool(FabricToolTags.PICKAXES, 0).sound(SoundType.NYLIUM).strength(0.4f).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.NETHER, blockToSpreadToo);
+        Block createBlock = new BYGNylium(BlockProperties.of(Material.STONE, color).tool(ToolType.PICKAXE, 0).sound(SoundType.NYLIUM).strength(0.4f).randomTicks().requiresCorrectToolForDrops(), featureConfig, Level.NETHER, blockToSpreadToo);
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createDesertPlant(String id, Tag.Named<Block> groundTag) {
-        Block createBlock = new DesertPlant(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().noOcclusion(), groundTag);
+        Block createBlock = new DesertPlant(BlockProperties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.0f).noCollission().noOcclusion(), groundTag);
         createPottedBlock(createBlock, id);
         createBlock(createBlock, id);
         return createBlock;

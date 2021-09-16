@@ -20,7 +20,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.WeakHashMap;
 
 public class CanyonRiverWorldGenerator extends Feature<NoneFeatureConfiguration> {
     public CanyonRiverWorldGenerator(Codec<NoneFeatureConfiguration> codec) {

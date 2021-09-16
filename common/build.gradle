@@ -11,7 +11,11 @@ architectury {
 }
 
 dependencies{
-    modCompileOnly "net.fabricmc.fabric-api:fabric-biome-api-v1:${rootProject.fabric_api_version}"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-biome-api-v1:${project.fabric_biome_api_version}"
+}
+
+minecraft{
+    accessWidener = file('src/main/resources/byg.aw')
 }
 
 java {

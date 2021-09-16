@@ -16,6 +16,6 @@ public class MLBlockTags {
     public static final Tag.Named<Block> BOOKSHELVES = createTag("bookshelves");
 
     public static Tag.Named<Block> createTag(String path) {
-        return BlockTagsAccess.invokeBind(new ResourceLocation(MOD_LOADER_TAG_TARGET, path).toString());
+        return ExpectPlatformUtils.createBlockTag(new ResourceLocation(MOD_LOADER_TAG_TARGET, path));
     }
 }
