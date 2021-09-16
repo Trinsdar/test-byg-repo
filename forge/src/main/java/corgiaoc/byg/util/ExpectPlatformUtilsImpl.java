@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import me.shedaniel.architectury.ExpectPlatform;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.GrassPathBlock;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.placer.BlockPlacer;
 import net.minecraft.world.gen.placer.BlockPlacerType;
@@ -22,7 +23,7 @@ public class ExpectPlatformUtilsImpl {
 
 
     public static Tag.Named<Block> createBlockTag(ResourceLocation location){
-        throw new AssertionError();
+        return BlockTags.createOptional(location);
     }
 
 

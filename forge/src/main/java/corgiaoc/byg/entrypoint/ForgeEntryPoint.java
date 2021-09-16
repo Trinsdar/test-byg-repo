@@ -17,6 +17,7 @@ import corgiaoc.byg.core.world.BYGStructures;
 import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import corgiaoc.byg.data.providers.BYGBlockTagsProvider;
 import corgiaoc.byg.mixin.access.FillerBlockTypeAccess;
+import me.shedaniel.architectury.platform.forge.EventBuses;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -56,6 +57,7 @@ public class ForgeEntryPoint implements EntryPoint {
 
     public ForgeEntryPoint() {
 //        NetherConfig.loadConfig(NetherConfig.COMMON_CONFIG, configDirectory().resolve(BYG.MOD_ID + "-nether.toml"));
+        EventBuses.registerModEventBus(BYG.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
