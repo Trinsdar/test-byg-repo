@@ -1,9 +1,7 @@
 package corgiaoc.byg.common.world.feature.overworld;
 
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.world.feature.config.BoulderConfig;
-import corgiaoc.byg.util.MLBlockTags;
 import corgiaoc.byg.util.noise.fastnoise.FastNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;

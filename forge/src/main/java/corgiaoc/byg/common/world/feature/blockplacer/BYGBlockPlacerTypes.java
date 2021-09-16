@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.world.feature.blockplacer;
 
-import corgiaoc.byg.BYG;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.blockplacer.BlockPlacer;
 import net.minecraft.world.gen.blockplacer.BlockPlacerType;

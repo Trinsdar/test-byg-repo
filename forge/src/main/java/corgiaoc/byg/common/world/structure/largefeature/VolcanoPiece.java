@@ -1,7 +1,5 @@
 package corgiaoc.byg.common.world.structure.largefeature;
 
-import corgiaoc.byg.core.BYGBlocks;
-import corgiaoc.byg.core.world.BYGStructures;
 import corgiaoc.byg.util.noise.fastnoise.lite.FastNoiseLite;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;

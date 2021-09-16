@@ -2,7 +2,6 @@
 package corgiaoc.byg.common.world.feature.overworld.trees.pine;
 
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.BYG;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;

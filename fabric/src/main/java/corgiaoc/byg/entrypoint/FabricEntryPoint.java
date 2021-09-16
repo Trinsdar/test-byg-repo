@@ -1,6 +1,7 @@
 package corgiaoc.byg.entrypoint;
 
 import corgiaoc.byg.BYG;
+import corgiaoc.byg.client.textures.renders.BYGCutoutRenders;
 import corgiaoc.byg.common.world.feature.blockplacer.BYGBlockPlacerTypes;
 import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.core.BYGEntities;
@@ -14,6 +15,7 @@ import corgiaoc.byg.core.world.BYGFeatures;
 import corgiaoc.byg.core.world.BYGStructures;
 import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import corgiaoc.byg.mixin.access.FillerBlockTypeAccess;
+import corgiaoc.byg.mixin.access.ItemBlockRenderTypeAccess;
 import corgiaoc.byg.util.MLBlockTags;
 import corgiaoc.byg.util.NetworkUtil;
 import net.fabricmc.api.ModInitializer;
@@ -74,6 +76,11 @@ public class FabricEntryPoint implements EntryPoint, ModInitializer {
     @Override
     public Packet<?> getEntitySpawnPacket(Entity entity) {
         return NetworkUtil.getEntitySpawnPacket(entity);
+    }
+
+    @Override
+    public void renderCutouts() {
+        BYGCutoutRenders.renderCutOuts(ItemBlockRenderTypeAccess.getTypeByBlock());
     }
 
     public static void bootStrap() {

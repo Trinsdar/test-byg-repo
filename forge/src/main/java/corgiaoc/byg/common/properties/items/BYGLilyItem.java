@@ -1,7 +1,6 @@
 package corgiaoc.byg.common.properties.items;
 
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

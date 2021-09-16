@@ -3,7 +3,6 @@ package corgiaoc.byg.common.world.feature.overworld.mushrooms.util;
 import com.mojang.serialization.Codec;
 import corgiaoc.byg.common.world.feature.FeatureUtil;
 import corgiaoc.byg.common.world.feature.config.BYGMushroomConfig;
-import corgiaoc.byg.util.MLBlockTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether.glowstonegardens;
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractBodyPlantBlock;
 import net.minecraft.block.AbstractTopPlantBlock;

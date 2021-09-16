@@ -1,9 +1,7 @@
 package corgiaoc.byg.common.world.surfacebuilder;
 
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.world.util.SurfaceContext;
-import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.util.noise.fastnoise.FastNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Util;

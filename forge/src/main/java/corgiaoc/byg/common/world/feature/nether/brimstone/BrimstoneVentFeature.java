@@ -2,7 +2,6 @@ package corgiaoc.byg.common.world.feature.nether.brimstone;
 
 import com.mojang.serialization.Codec;
 import corgiaoc.byg.common.world.feature.config.BrimstoneVentsConfig;
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockStateMatcher;

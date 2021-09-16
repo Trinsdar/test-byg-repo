@@ -1,7 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.end;
 
-import corgiaoc.byg.core.BYGBlocks;
-import corgiaoc.byg.core.BYGItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

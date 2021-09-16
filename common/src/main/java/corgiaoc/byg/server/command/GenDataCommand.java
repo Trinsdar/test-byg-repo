@@ -15,6 +15,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import corgiaoc.byg.BYG;
+import me.shedaniel.architectury.platform.Platform;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -59,8 +60,7 @@ public class GenDataCommand {
     public static void dataGenCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
         String commandString = "gendata";
         List<String> modIdList = new ArrayList<>();
-        FabricLoader.getInstance().getAllMods().forEach(modContainer -> {
-            String modId = modContainer.getMetadata().getId();
+        Platform.getModIds().forEach(modId -> {
             modIdList.add(modId);
         });
 

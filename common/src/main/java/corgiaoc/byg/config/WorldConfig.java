@@ -2,6 +2,8 @@ package corgiaoc.byg.config;
 
 import com.electronwill.nightconfig.core.CommentedConfig;
 import corgiaoc.byg.BYG;
+import corgiaoc.byg.util.ExpectPlatformUtils;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 
@@ -95,7 +97,9 @@ public class WorldConfig {
                 if (result.startsWith("!")) {
                     result = result.substring(1);
                 }
-                if (result.startsWith("#")) {
+                if (result.startsWith("$") && Platform.isForge()) {
+                    fail = ExpectPlatformUtils.biomeDictionaryHasType(result, biomeKey);
+                } else if (result.startsWith("#")) {
                     String categoryString = result.substring(1);
                     fail = !biome.getBiomeCategory().getName().equalsIgnoreCase(categoryString);
                 } else if (!biomeLocation.equalsIgnoreCase(result) && !result.equalsIgnoreCase(biomeNamespace)) {
@@ -103,13 +107,7 @@ public class WorldConfig {
                 }
             }
             boolean isFlipped = condition.startsWith("!");
-            if (fail) {
-                if (isFlipped) {
-                    return true;
-                }
-            }
-
-            if (!fail && !isFlipped) {
+            if (fail == isFlipped) {
                 return true;
             }
         }

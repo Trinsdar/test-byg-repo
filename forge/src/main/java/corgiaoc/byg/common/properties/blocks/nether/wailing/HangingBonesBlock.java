@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether.wailing;
 
-import corgiaoc.byg.core.BYGBlocks;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

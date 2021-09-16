@@ -1,8 +1,6 @@
 package corgiaoc.byg.common.world.surfacebuilder;
 
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.core.BYGBlocks;
-import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;

@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.world.util;
 
-import corgiaoc.byg.BYG;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;

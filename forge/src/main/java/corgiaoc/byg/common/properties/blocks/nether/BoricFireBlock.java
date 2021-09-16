@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether;
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;

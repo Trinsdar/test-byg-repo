@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether;
 
-import corgiaoc.byg.util.MLBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

@@ -3,8 +3,6 @@ package corgiaoc.byg.common.world.feature.overworld.giantflowers.util;
 import com.mojang.serialization.Codec;
 import corgiaoc.byg.common.world.feature.FeatureUtil;
 import corgiaoc.byg.common.world.feature.config.GiantFlowerConfig;
-import corgiaoc.byg.core.BYGBlocks;
-import corgiaoc.byg.util.MLBlockTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

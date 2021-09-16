@@ -2,7 +2,6 @@ package corgiaoc.byg.common.world.feature.overworld.river;
 
 import com.mojang.serialization.Codec;
 import corgiaoc.byg.common.world.feature.NoisyCaveSphereWater;
-import corgiaoc.byg.core.world.BYGBiomes;
 import corgiaoc.byg.util.noise.fastnoise.FastNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

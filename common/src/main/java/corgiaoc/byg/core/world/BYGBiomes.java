@@ -450,6 +450,7 @@ public class BYGBiomes {
             }
         }));
 
+        //todo move these to platform aganostic method
         fillBiomeDictionary(overworldPrimaryBiomeDataHolder.getBiomeData());
         addBiomeNumericalIDs();
     }

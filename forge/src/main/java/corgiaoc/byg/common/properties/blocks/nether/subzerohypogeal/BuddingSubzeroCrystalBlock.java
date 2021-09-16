@@ -1,7 +1,6 @@
 package corgiaoc.byg.common.properties.blocks.nether.subzerohypogeal;
 
 import corgiaoc.byg.common.properties.blocks.CrystalClusterBlock;
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

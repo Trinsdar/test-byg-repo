@@ -1,7 +1,6 @@
 package corgiaoc.byg.common.properties.blocks;
 
 import corgiaoc.byg.common.world.feature.overworld.mushrooms.util.BYGHugeMushroom;
-import corgiaoc.byg.util.MLBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;

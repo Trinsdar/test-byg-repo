@@ -1,13 +1,13 @@
 package corgiaoc.byg.util;
 
-import corgiaoc.byg.mixin.access.BlockTagsAccess;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.level.block.Block;
 
 public class MLBlockTags {
 
-    public static final String MOD_LOADER_TAG_TARGET = "c";
+    public static final String MOD_LOADER_TAG_TARGET = Platform.isFabric() ? "c" : "forge";
 
     public static final Tag.Named<Block> NETHERRACK = createTag("netherrack");
     public static final Tag.Named<Block> DIRT = createTag("dirt");

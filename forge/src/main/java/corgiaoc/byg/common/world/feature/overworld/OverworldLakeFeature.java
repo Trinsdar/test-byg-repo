@@ -1,11 +1,6 @@
 package corgiaoc.byg.common.world.feature.overworld;
 
 import corgiaoc.byg.common.world.OpenSimplexNoiseEnd;
-import corgiaoc.byg.core.BYGBlocks;
-import corgiaoc.byg.util.BlockHelper;
-import corgiaoc.byg.util.FeatureHelper;
-import corgiaoc.byg.util.MLBlockTags;
-import corgiaoc.byg.util.ModMathHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;

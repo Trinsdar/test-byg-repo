@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether.warped;
 
-import corgiaoc.byg.core.BYGBlocks;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;

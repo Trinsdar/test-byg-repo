@@ -1,7 +1,6 @@
 package corgiaoc.byg.common.properties.blocks.nether;
 
 import corgiaoc.byg.common.entity.tileentities.HypogealImperiumTE;
-import corgiaoc.byg.core.BYGTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

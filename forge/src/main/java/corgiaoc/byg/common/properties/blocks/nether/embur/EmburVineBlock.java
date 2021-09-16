@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether.embur;
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.AbstractTopPlantBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

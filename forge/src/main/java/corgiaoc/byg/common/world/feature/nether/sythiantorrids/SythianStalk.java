@@ -1,7 +1,6 @@
 package corgiaoc.byg.common.world.feature.nether.sythiantorrids;
 
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.BambooBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.properties.BambooLeaves;

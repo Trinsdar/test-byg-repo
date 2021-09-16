@@ -2,7 +2,6 @@ package corgiaoc.byg.common.world.feature.nether.quartzdesert;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.core.BYGBlocks;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

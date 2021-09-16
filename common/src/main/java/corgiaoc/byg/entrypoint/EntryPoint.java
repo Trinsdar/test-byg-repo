@@ -11,4 +11,6 @@ public interface EntryPoint {
 
 
     Packet<?> getEntitySpawnPacket(Entity entity);
+
+    void renderCutouts();
 }

@@ -32,6 +32,7 @@ import corgiaoc.byg.entrypoint.EntryPoint;
 import corgiaoc.byg.mixin.access.BlockEntityTypeAccess;
 import corgiaoc.byg.mixin.access.ItemBlockRenderTypeAccess;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -273,7 +274,7 @@ public class BYG {
     public static void clientLoad() {
         isClient = true;
         LOGGER.debug("BYG: \"Client Setup\" Event Starting...");
-        BYGCutoutRenders.renderCutOuts(ItemBlockRenderTypeAccess.getTypeByBlock());
+        entryPoint.renderCutouts();
         LOGGER.info("BYG: \"Client Setup\" Event Complete!");
     }
 
@@ -285,6 +286,17 @@ public class BYG {
         BYGStrippables.strippableLogsBYG();
         BYGCarvableBlocks.addCarverBlocks();
         BYGPaths.addBYGPaths();
+        if (Platform.isForge()){
+            cleanMemory();
+        }
         LOGGER.info("BYG: \"Load Complete\" Event Complete!");
+    }
+
+    //Minimize BYG's ram footprint.
+    private static void cleanMemory() {
+        BYG.LOGGER.debug("Cleaning memory...");
+        BYGBlocks.flowerPotBlocks = null;
+        FILE_PATH = null;
+        BYG.LOGGER.debug("Cleaned memory!");
     }
 }

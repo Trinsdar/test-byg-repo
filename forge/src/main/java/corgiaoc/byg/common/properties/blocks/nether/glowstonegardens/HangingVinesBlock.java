@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.nether.glowstonegardens;
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.*;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;

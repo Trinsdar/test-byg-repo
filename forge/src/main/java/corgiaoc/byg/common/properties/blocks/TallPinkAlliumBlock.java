@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks;
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.IGrowable;

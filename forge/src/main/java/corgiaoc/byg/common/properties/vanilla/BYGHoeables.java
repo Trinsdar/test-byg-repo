@@ -1,7 +1,5 @@
 package corgiaoc.byg.common.properties.vanilla;
 
-import corgiaoc.byg.BYG;
-import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.mixin.access.HoeItemAccess;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

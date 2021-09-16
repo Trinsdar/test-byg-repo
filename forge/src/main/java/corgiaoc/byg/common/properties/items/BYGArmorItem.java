@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.items;
 
-import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.properties.items.itemtiers.BYGArmorTiers;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.entity.Entity;

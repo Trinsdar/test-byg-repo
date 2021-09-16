@@ -1,10 +1,20 @@
 package corgiaoc.byg.entrypoint;
 
 import corgiaoc.byg.BYG;
+import corgiaoc.byg.client.textures.renders.BYGCutoutRenders;
 import corgiaoc.byg.common.world.BYGWorldTypeThatIsntAWorldtype;
 import corgiaoc.byg.common.world.feature.blockplacer.BYGBlockPlacerTypes;
-import corgiaoc.byg.core.*;
-import corgiaoc.byg.core.world.*;
+import corgiaoc.byg.core.BYGBlocks;
+import corgiaoc.byg.core.BYGEntities;
+import corgiaoc.byg.core.BYGItems;
+import corgiaoc.byg.core.BYGSounds;
+import corgiaoc.byg.core.BYGTileEntities;
+import corgiaoc.byg.core.world.BYGBiomes;
+import corgiaoc.byg.core.world.BYGContainerTypes;
+import corgiaoc.byg.core.world.BYGDecorators;
+import corgiaoc.byg.core.world.BYGFeatures;
+import corgiaoc.byg.core.world.BYGStructures;
+import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import corgiaoc.byg.data.providers.BYGBlockTagsProvider;
 import corgiaoc.byg.mixin.access.FillerBlockTypeAccess;
 import net.minecraft.block.Block;
@@ -12,7 +22,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraft.network.IPacket;
+import net.minecraft.network.Packet;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -73,8 +83,13 @@ public class ForgeEntryPoint implements EntryPoint {
     }
 
     @Override
-    public IPacket<?> getEntitySpawnPacket(Entity entity) {
+    public Packet<?> getEntitySpawnPacket(Entity entity) {
         return NetworkHooks.getEntitySpawningPacket(entity);
+    }
+
+    @Override
+    public void renderCutouts() {
+        BYGCutoutRenders.renderCutOuts();
     }
 
     @SubscribeEvent

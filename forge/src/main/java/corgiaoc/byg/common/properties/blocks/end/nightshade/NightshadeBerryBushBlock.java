@@ -1,7 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.end.nightshade;
 
-import corgiaoc.byg.core.BYGItems;
-import corgiaoc.byg.util.MLBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SweetBerryBushBlock;

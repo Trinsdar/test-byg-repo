@@ -1,6 +1,5 @@
 package corgiaoc.byg.common.properties.blocks.end.impariusgrove;
 
-import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.block.AbstractBodyPlantBlock;
 import net.minecraft.block.AbstractTopPlantBlock;
 import net.minecraft.block.Block;
