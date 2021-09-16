@@ -52,7 +52,17 @@ public class SythianStalkBlock extends BambooBlock {
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
         if (!state.canSurvive(worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
-        }
+            //todo abstract this somehow
+        } /*else if (state.getValue(STAGE) == 0) {
+            if (true) {
+                int i = this.getHeightBelowUpToMax(worldIn, pos) + 1;
+                if (i < 16 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(3) == 0 && worldIn.isEmptyBlock(pos.above()) && worldIn.getRawBrightness(pos.above(), 0) <= 12)) {
+                    this.growBamboo(state, worldIn, pos, rand, i);
+                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                }
+            }
+
+        }*/
     }
 
     @Override

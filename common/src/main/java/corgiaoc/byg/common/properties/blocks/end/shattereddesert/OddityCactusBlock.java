@@ -63,6 +63,18 @@ public class OddityCactusBlock extends Block {
                 } else {
                     worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
                 }
+                //todo abstract this
+                /*if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
+                    if (j == 15) {
+                        worldIn.setBlockAndUpdate(blockpos, this.defaultBlockState());
+                        BlockState blockstate = state.setValue(AGE, Integer.valueOf(0));
+                        worldIn.setBlock(pos, blockstate, 4);
+                        blockstate.neighborChanged(worldIn, blockpos, this, pos, false);
+                    } else {
+                        worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
+                    }
+                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                }*/
             }
         }
     }

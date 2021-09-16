@@ -4,6 +4,7 @@ import corgiaoc.byg.core.BYGBlocks;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -76,5 +77,9 @@ public class HangingBonesBlock extends Block {
             return false;
         return worldIn.getBlockState(pos.above()).getBlock() == this || worldIn.getBlockState(pos.above()).getBlock() == Blocks.BONE_BLOCK;
 
+    }
+
+    public boolean isLadder(BlockState state, LevelReader world, BlockPos pos, LivingEntity entity) {
+        return true;
     }
 }

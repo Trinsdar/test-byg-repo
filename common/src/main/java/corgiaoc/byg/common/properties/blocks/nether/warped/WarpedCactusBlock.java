@@ -59,6 +59,8 @@ public class WarpedCactusBlock extends Block {
                 } else {
                     worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
                 }
+                //todo abstract this
+                //net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
             }
         }
     }

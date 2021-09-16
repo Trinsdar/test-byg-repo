@@ -57,7 +57,14 @@ public class HypogealImperiumBlock extends BaseEntityBlock {
         return InteractionResult.FAIL;
     }
 
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
 
+    @Nullable
+    public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+        return BYGTileEntities.HYPOGEAL.create();
+    }
 
     @Override
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {

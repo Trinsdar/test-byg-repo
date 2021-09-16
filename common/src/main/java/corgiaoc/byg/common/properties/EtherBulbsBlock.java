@@ -72,6 +72,13 @@ public class EtherBulbsBlock extends Block implements BonemealableBlock {
             return block == BYGBlocks.ETHER_LEAVES;
     }
 
+    public int getLightValue(BlockState state, BlockGetter world, BlockPos pos) {
+        if (state.getValue(AGE) >= 2)
+            return 15;
+        else
+            return 4;
+    }
+
     @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
