@@ -200,6 +200,7 @@ public class OverworldLakeFeature extends Feature<NoneFeatureConfiguration> {
 
     private boolean canReplace(BlockState state) {
         return state.getMaterial().isReplaceable()
+                || state.is(MLBlockTags.STONE)
                 || state.is(BlockTags.BASE_STONE_OVERWORLD)
                 || state.is(BlockTags.FLOWERS)
                 || state.is(MLBlockTags.ORES) // Handles floating ores
