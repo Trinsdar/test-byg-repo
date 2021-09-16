@@ -1,7 +1,6 @@
 package corgiaoc.byg.util;
 
 import com.mojang.serialization.Codec;
-import me.shedaniel.architectury.ExpectPlatform;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.GrassPathBlock;
 import net.minecraft.tag.BlockTags;
@@ -23,7 +22,7 @@ public class ExpectPlatformUtilsImpl {
 
 
     public static Tag.Named<Block> createBlockTag(ResourceLocation location){
-        return BlockTags.createOptional(location);
+        return BlockTags.bind(location);
     }
 
 
