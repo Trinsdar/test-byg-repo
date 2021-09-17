@@ -30,7 +30,6 @@ import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.core.world.BYGBiomes;
 import corgiaoc.byg.entrypoint.EntryPoint;
 import corgiaoc.byg.mixin.access.BlockEntityTypeAccess;
-import corgiaoc.byg.mixin.access.ItemBlockRenderTypeAccess;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.Registry;

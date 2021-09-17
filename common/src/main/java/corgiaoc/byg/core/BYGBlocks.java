@@ -58,8 +58,6 @@ import corgiaoc.byg.common.world.feature.overworld.mushrooms.util.BYGMushroomToH
 import corgiaoc.byg.common.world.feature.overworld.trees.TreeSpawners;
 import corgiaoc.byg.common.world.feature.overworld.trees.util.TreeSpawner;
 import corgiaoc.byg.core.world.BYGConfiguredFeatures;
-import corgiaoc.byg.mixin.access.GrassPathBlockAccess;
-import corgiaoc.byg.mixin.access.IronBarsBlockAccess;
 import corgiaoc.byg.mixin.access.PressurePlateBlockAccess;
 import corgiaoc.byg.mixin.access.StairBlockAccess;
 import corgiaoc.byg.mixin.access.TrapDoorBlockAccess;

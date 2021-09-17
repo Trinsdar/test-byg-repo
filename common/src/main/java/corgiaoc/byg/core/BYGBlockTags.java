@@ -1,7 +1,6 @@
 package corgiaoc.byg.core;
 
 import corgiaoc.byg.BYG;
-import corgiaoc.byg.mixin.access.BlockTagsAccess;
 import corgiaoc.byg.util.ExpectPlatformUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;

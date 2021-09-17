@@ -9,6 +9,8 @@ dependencies {
     compileOnly(project(path: ":forge-wrapper")) {
         transitive = false
     }
+    implementation("com.electronwill.night-config:toml:${rootProject.nightconfig_version}")
+    implementation("com.electronwill.night-config:core:${rootProject.nightconfig_version}")
 }
 
 architectury {
