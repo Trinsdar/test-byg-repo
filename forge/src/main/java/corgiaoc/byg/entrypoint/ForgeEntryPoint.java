@@ -17,7 +17,6 @@ import corgiaoc.byg.core.world.BYGStructures;
 import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import corgiaoc.byg.data.providers.BYGBlockTagsProvider;
 import corgiaoc.byg.mixin.access.FillerBlockTypeAccess;
-import me.shedaniel.architectury.platform.forge.EventBuses;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -29,6 +28,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
@@ -51,7 +51,6 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 

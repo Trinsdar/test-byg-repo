@@ -12,15 +12,11 @@
     "access.IronBarsBlockAccess",
     "access.ItemBlockRenderTypeAccess",
     "access.MenuTypeAccess",
-    "access.PickaxeItemAccess",
     "access.PressurePlateBlockAccess",
-    "access.ShovelItemAccess",
     "access.StairBlockAccess",
     "access.TrapDoorBlockAccess",
     "access.WoodButtonBlockAccess",
-    "common.block.MixinAbstractBlockStateBookshelf",
-    "common.block.MixinAbstractFurnaceBlock",
-    "common.block.PlantBlockMixin"
+    "common.block.MixinAbstractFurnaceBlock"
   ],
   "injectors": {
     "defaultRequire": 1

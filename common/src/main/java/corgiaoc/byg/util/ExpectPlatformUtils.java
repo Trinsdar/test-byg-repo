@@ -5,12 +5,19 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.GrassPathBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacer;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
 import net.minecraft.world.level.material.Material;
@@ -48,7 +55,32 @@ public class ExpectPlatformUtils {
     }
 
     @ExpectPlatform
+    public static PressurePlateBlock createPressurePlate(PressurePlateBlock.Sensitivity sensitivity, BlockBehaviour.Properties properties) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static StairBlock createStair(BlockState state, BlockBehaviour.Properties properties) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static boolean biomeDictionaryHasType(String result, ResourceKey<Biome> biomeKey){
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static TrapDoorBlock createTrapDoor(BlockBehaviour.Properties properties) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static WoodButtonBlock createWoodButton(BlockBehaviour.Properties properties) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <T extends AbstractContainerMenu> MenuType<T> createMenu(MenuType.MenuSupplier<T> menuSupplier){
         throw new AssertionError();
     }
 }

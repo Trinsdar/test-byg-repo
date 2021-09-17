@@ -58,10 +58,6 @@ import corgiaoc.byg.common.world.feature.overworld.mushrooms.util.BYGMushroomToH
 import corgiaoc.byg.common.world.feature.overworld.trees.TreeSpawners;
 import corgiaoc.byg.common.world.feature.overworld.trees.util.TreeSpawner;
 import corgiaoc.byg.core.world.BYGConfiguredFeatures;
-import corgiaoc.byg.mixin.access.PressurePlateBlockAccess;
-import corgiaoc.byg.mixin.access.StairBlockAccess;
-import corgiaoc.byg.mixin.access.TrapDoorBlockAccess;
-import corgiaoc.byg.mixin.access.WoodButtonBlockAccess;
 import corgiaoc.byg.util.ExpectPlatformUtils;
 import me.shedaniel.architectury.platform.Platform;
 import me.shedaniel.architectury.registry.BlockProperties;
@@ -1174,7 +1170,7 @@ public class BYGBlocks {
     }
 
     static Block createChiseledFungalImpariusStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).tool(ToolType.HOE).sound(SoundType.HONEY_BLOCK).strength(2.0f));
+        Block createBlock = ExpectPlatformUtils.createStair(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.GRASS, MaterialColor.WARPED_WART_BLOCK).tool(ToolType.HOE).sound(SoundType.HONEY_BLOCK).strength(2.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1216,7 +1212,7 @@ public class BYGBlocks {
     }
 
     static Block createTravertineStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.STONE, MaterialColor.SNOW).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = ExpectPlatformUtils.createStair(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.STONE, MaterialColor.SNOW).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1234,7 +1230,7 @@ public class BYGBlocks {
     }
 
     static Block createScoriaStoneStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
+        Block createBlock = ExpectPlatformUtils.createStair(Blocks.COBBLESTONE.defaultBlockState(), BlockProperties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).tool(ToolType.PICKAXE).sound(SoundType.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops());
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1332,7 +1328,7 @@ public class BYGBlocks {
     }
 
     static Block createChiseledTheriumStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.PRISMARINE.defaultBlockState(), BlockProperties.copy(Blocks.PRISMARINE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
+        Block createBlock = ExpectPlatformUtils.createStair(Blocks.PRISMARINE.defaultBlockState(), BlockProperties.copy(Blocks.PRISMARINE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1356,7 +1352,7 @@ public class BYGBlocks {
     }
 
     static Block createShinyChiseledTheriumStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Blocks.PRISMARINE.defaultBlockState(), BlockProperties.copy(Blocks.PRISMARINE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
+        Block createBlock = ExpectPlatformUtils.createStair(Blocks.PRISMARINE.defaultBlockState(), BlockProperties.copy(Blocks.PRISMARINE).tool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.GLASS).lightLevel((state) -> 12).strength(1.5f, 9.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1410,19 +1406,19 @@ public class BYGBlocks {
     }
 
     static Block createWoodPressurePlate(String id) {
-        Block createBlock = PressurePlateBlockAccess.create(PressurePlateBlock.Sensitivity.EVERYTHING, BlockProperties.of(Material.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).noCollission().strength(0.5F));
+        Block createBlock = ExpectPlatformUtils.createPressurePlate(PressurePlateBlock.Sensitivity.EVERYTHING, BlockProperties.of(Material.WOOD).tool(ToolType.AXE).sound(SoundType.WOOD).noCollission().strength(0.5F));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createWoodStairs(String id) {
-        Block createBlock = StairBlockAccess.create(Registry.BLOCK.get(new ResourceLocation(BYG.MOD_ID, id.replace("_stairs", "planks"))).defaultBlockState(), BlockProperties.copy(Blocks.OAK_PLANKS).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
+        Block createBlock = ExpectPlatformUtils.createStair(Registry.BLOCK.get(new ResourceLocation(BYG.MOD_ID, id.replace("_stairs", "planks"))).defaultBlockState(), BlockProperties.copy(Blocks.OAK_PLANKS).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f));
         createBlock(createBlock, id);
         return createBlock;
     }
 
     static Block createTrapDoor(String id) {
-        Block createBlock = TrapDoorBlockAccess.create(BlockProperties.of(Material.WOOD, MaterialColor.COLOR_BROWN).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f).noOcclusion());
+        Block createBlock = ExpectPlatformUtils.createTrapDoor(BlockProperties.of(Material.WOOD, MaterialColor.COLOR_BROWN).tool(ToolType.AXE).sound(SoundType.WOOD).strength(2.0f, 3.0f).noOcclusion());
         createBlock(createBlock, id);
         return createBlock;
     }
@@ -1434,7 +1430,7 @@ public class BYGBlocks {
     }
 
     static Block createWoodButton(String id) {
-        Block createBlock = WoodButtonBlockAccess.create(BlockProperties.of(Material.DECORATION).tool(ToolType.AXE).sound(SoundType.WOOD).noCollission().strength(0.5F));
+        Block createBlock = ExpectPlatformUtils.createWoodButton(BlockProperties.of(Material.DECORATION).tool(ToolType.AXE).sound(SoundType.WOOD).noCollission().strength(0.5F));
         createBlock(createBlock, id);
         return createBlock;
     }

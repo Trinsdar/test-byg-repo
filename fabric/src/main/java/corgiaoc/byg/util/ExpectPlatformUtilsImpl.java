@@ -7,16 +7,29 @@ import corgiaoc.byg.mixin.access.BlockTagsAccess;
 import corgiaoc.byg.mixin.access.DoorBlockAccess;
 import corgiaoc.byg.mixin.access.GrassPathBlockAccess;
 import corgiaoc.byg.mixin.access.IronBarsBlockAccess;
+import corgiaoc.byg.mixin.access.MenuTypeAccess;
+import corgiaoc.byg.mixin.access.PressurePlateBlockAccess;
+import corgiaoc.byg.mixin.access.StairBlockAccess;
+import corgiaoc.byg.mixin.access.TrapDoorBlockAccess;
+import corgiaoc.byg.mixin.access.WoodButtonBlockAccess;
+import me.shedaniel.architectury.ExpectPlatform;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.GrassPathBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacer;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
 
@@ -51,8 +64,27 @@ public class ExpectPlatformUtilsImpl {
         return IronBarsBlockAccess.create(properties);
     }
 
+    public static PressurePlateBlock createPressurePlate(PressurePlateBlock.Sensitivity sensitivity, BlockBehaviour.Properties properties) {
+        return PressurePlateBlockAccess.create(sensitivity, properties);
+    }
+
+    public static StairBlock createStair(BlockState state, BlockBehaviour.Properties properties) {
+        return StairBlockAccess.create(state, properties);
+    }
+
+    public static TrapDoorBlock createTrapDoor(BlockBehaviour.Properties properties) {
+        return TrapDoorBlockAccess.create(properties);
+    }
+
+    public static WoodButtonBlock createWoodButton(BlockBehaviour.Properties properties) {
+        return WoodButtonBlockAccess.create(properties);
+    }
 
     public static boolean biomeDictionaryHasType(String result, ResourceKey<Biome> biomeKey){
         return true;
+    }
+
+    public static <T extends AbstractContainerMenu> MenuType<T> createMenu(MenuType.MenuSupplier<T> menuSupplier){
+        return MenuTypeAccess.create(menuSupplier);
     }
 }
