@@ -30,10 +30,14 @@ import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.core.world.BYGBiomes;
 import corgiaoc.byg.entrypoint.EntryPoint;
 import corgiaoc.byg.mixin.access.BlockEntityTypeAccess;
+import corgiaoc.byg.mixin.access.WeightedListAccess;
+import corgiaoc.byg.mixin.access.WeightedListEntryAccess;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import me.shedaniel.architectury.platform.Platform;
+import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.behavior.WeightedList;
 import net.minecraft.world.level.biome.Biome;
@@ -47,6 +51,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -210,22 +215,30 @@ public class BYG {
             LOGGER.error("Could not read \"" + biomesConfigPath.toString() + "\"... using internal defaults...");
             e.printStackTrace();
         }
-        overworldPrimaryBiomeDataHolder.getBiomeData().forEach(((location, primaryBiomeData) -> {
+        overworldPrimaryBiomeDataHolder.getBiomeData().forEach((location, primaryBiomeData) -> {
             ResourceLocation river = primaryBiomeData.getRiver();
             if (!river.equals(EMPTY)) {
-                BYGBiome.BIOME_TO_RIVER_LIST.put(location, river);
+                OverworldBiomes.setRiverBiome(ResourceKey.create(Registry.BIOME_REGISTRY, location), ResourceKey.create(Registry.BIOME_REGISTRY, river));
+                //BYGBiome.BIOME_TO_RIVER_LIST.put(location, river);
             }
             ResourceLocation beach = primaryBiomeData.getBeach();
             if (!beach.equals(EMPTY)) {
-                BYGBiome.BIOME_TO_BEACH_LIST.put(location, beach);
+                OverworldBiomes.addShoreBiome(ResourceKey.create(Registry.BIOME_REGISTRY, location), ResourceKey.create(Registry.BIOME_REGISTRY, beach), 1.0);
+                //BYGBiome.BIOME_TO_BEACH_LIST.put(location, beach);
             }
             ResourceLocation edgeBiome = primaryBiomeData.getEdgeBiome();
             if (!edgeBiome.equals(EMPTY)) {
-                BYGBiome.BIOME_TO_EDGE_LIST.put(location, edgeBiome);
+                OverworldBiomes.addEdgeBiome(ResourceKey.create(Registry.BIOME_REGISTRY, location), ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
+                //BYGBiome.BIOME_TO_EDGE_LIST.put(location, edgeBiome);
             }
             WeightedList<ResourceLocation> subBiomes = primaryBiomeData.getSubBiomes();
-            BYGBiome.BIOME_TO_HILLS_LIST.put(location, subBiomes);
-        }));
+            List<WeightedList.WeightedEntry<ResourceLocation>> entries = ((WeightedListAccess<ResourceLocation>) subBiomes).getEntries();
+            entries.forEach(r -> {
+                //todo figure out if I need to translate this weight to a double
+                OverworldBiomes.addHillsBiome(ResourceKey.create(Registry.BIOME_REGISTRY, location), ResourceKey.create(Registry.BIOME_REGISTRY, r.getData()), (((WeightedListEntryAccess)r).getWeight()));
+            });
+            //BYGBiome.BIOME_TO_HILLS_LIST.put(location, subBiomes);
+        });
         
 
         BYGBiomes.handleOverworldEntries(overworldPrimaryBiomeDataHolder);
