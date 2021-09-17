@@ -4,6 +4,7 @@ import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.world.biome.BYGBiome;
 import corgiaoc.byg.core.world.BYGBiomes;
 import corgiaoc.byg.mixin.access.WeightedListAccess;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import corgiaoc.byg.util.LayerRandomWeightedListUtil;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.data.BuiltinRegistries;
@@ -72,8 +73,8 @@ public abstract class MixinHillsLayer {
 
 
     static {
-        topOceanList.add(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_OCEAN));
-        topOceanList.add(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN));
-        topOceanList.add(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_WARM_OCEAN));
+        topOceanList.add(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_OCEAN));
+        topOceanList.add(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN));
+        topOceanList.add(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_WARM_OCEAN));
     }
 }

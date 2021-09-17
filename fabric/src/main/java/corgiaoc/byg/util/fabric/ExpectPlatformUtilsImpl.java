@@ -13,6 +13,7 @@ import corgiaoc.byg.mixin.fabric.access.StairBlockAccess;
 import corgiaoc.byg.mixin.fabric.access.TrapDoorBlockAccess;
 import corgiaoc.byg.mixin.fabric.access.WoodButtonBlockAccess;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
@@ -92,5 +93,9 @@ public class ExpectPlatformUtilsImpl {
 
     public static CreativeModeTab createTab(ResourceLocation tabLocation, Item icon){
         return FabricItemGroupBuilder.build(tabLocation, () -> new ItemStack(icon));
+    }
+
+    public static Biome getOrThrow(ResourceKey<Biome> key){
+        return BuiltinRegistries.BIOME.getOrThrow(key);
     }
 }

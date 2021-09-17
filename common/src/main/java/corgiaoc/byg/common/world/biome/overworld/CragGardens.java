@@ -50,7 +50,7 @@ public class CragGardens extends BYGBiome {
     @Nullable
     @Override
     public Biome getEdge() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.RIVER);
+        return ExpectPlatformUtils.getOrThrow(Biomes.RIVER);
     }
 
     @Override

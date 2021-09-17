@@ -41,12 +41,12 @@ public class SnowyDeciduousForestHills extends BYGSubBiome {
 
     @Override
     public Biome getRiver() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.FROZEN_RIVER);
+        return ExpectPlatformUtils.getOrThrow(Biomes.FROZEN_RIVER);
     }
 
     @Override
     public Biome getBeach() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.SNOWY_BEACH);
+        return ExpectPlatformUtils.getOrThrow(Biomes.SNOWY_BEACH);
     }
 
     @Override

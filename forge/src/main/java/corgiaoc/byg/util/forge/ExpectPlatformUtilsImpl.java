@@ -3,6 +3,7 @@ package corgiaoc.byg.util.forge;
 import com.mojang.serialization.Codec;
 import corgiaoc.byg.core.BYGItems;
 import me.shedaniel.architectury.ExpectPlatform;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacer;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ExpectPlatformUtilsImpl {
     public static Biome.ClimateSettings createClimate(Biome.Precipitation precipitation, float temperature, Biome.TemperatureModifier temperatureModifier, float humidity){
@@ -96,5 +98,12 @@ public class ExpectPlatformUtilsImpl {
                 return new ResourceLocation("minecraft", "textures/gui/container/creative_inventory/tab_item_search.png");
             }
         };
+    }
+
+    public static Biome getOrThrow(ResourceKey<Biome> key){
+        if (ForgeRegistries.BIOMES.containsKey(key.location())){
+            return ForgeRegistries.BIOMES.getValue(key.location());
+        }
+        throw new IllegalStateException("Missing: " + key + "from forge Registry, did you register the biome?");
     }
 }

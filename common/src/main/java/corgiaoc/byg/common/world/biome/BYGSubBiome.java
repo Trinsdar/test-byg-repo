@@ -3,6 +3,7 @@ package corgiaoc.byg.common.world.biome;
 import corgiaoc.byg.config.json.biomedata.BiomeDataHolders;
 import corgiaoc.byg.config.json.biomedata.OverworldSubBiomeData;
 import corgiaoc.byg.mixin.access.BiomeAccess;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -43,7 +44,7 @@ public class BYGSubBiome {
 
     @Nullable
     public Biome getBeach() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.BEACH);
+        return ExpectPlatformUtils.getOrThrow(Biomes.BEACH);
     }
 
     @Nullable
@@ -56,7 +57,7 @@ public class BYGSubBiome {
     }
 
     public Biome getRiver() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.RIVER);
+        return ExpectPlatformUtils.getOrThrow(Biomes.RIVER);
     }
 
     public String[] getBiomeDictionary() {

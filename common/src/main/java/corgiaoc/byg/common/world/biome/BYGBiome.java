@@ -5,6 +5,7 @@ import corgiaoc.byg.config.json.biomedata.OverworldPrimaryBiomeData;
 import corgiaoc.byg.mixin.access.BiomeAccess;
 import corgiaoc.byg.mixin.access.WeightedListAccess;
 import corgiaoc.byg.mixin.access.WeightedListEntryAccess;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import corgiaoc.byg.util.MLClimate;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import net.minecraft.core.Registry;
@@ -55,7 +56,7 @@ public class BYGBiome {
     }
 
     public Biome getRiver() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.RIVER);
+        return ExpectPlatformUtils.getOrThrow(Biomes.RIVER);
     }
 
     public WeightedList<Biome> getHills() {
@@ -69,7 +70,7 @@ public class BYGBiome {
 
     @Nullable
     public Biome getBeach() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.BEACH);
+        return ExpectPlatformUtils.getOrThrow(Biomes.BEACH);
     }
 
 

@@ -47,7 +47,7 @@ public class MojaveDesert extends BYGBiome {
     @Override
     public WeightedList<Biome> getHills() {
         WeightedList<Biome> biomeWeightedList = new WeightedList<>();
-        biomeWeightedList.add(BuiltinRegistries.BIOME.getOrThrow(Biomes.DESERT), 10);
+        biomeWeightedList.add(ExpectPlatformUtils.getOrThrow(Biomes.DESERT), 10);
         return biomeWeightedList;
     }
 

@@ -1,5 +1,6 @@
 package corgiaoc.byg.common.world.biome;
 
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.biome.Biome;
@@ -14,6 +15,6 @@ public class BiomeUtil {
     }
 
     public static boolean isOcean(Biome biome) {
-        return biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.WARM_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.LUKEWARM_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.COLD_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.FROZEN_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_WARM_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_COLD_OCEAN) || biome == BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_FROZEN_OCEAN);
+        return biome == ExpectPlatformUtils.getOrThrow(Biomes.WARM_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.LUKEWARM_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.COLD_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.FROZEN_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.DEEP_WARM_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.DEEP_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.DEEP_COLD_OCEAN) || biome == ExpectPlatformUtils.getOrThrow(Biomes.DEEP_FROZEN_OCEAN);
     }
 }

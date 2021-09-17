@@ -56,7 +56,7 @@ public class SnowyEvergreenTaiga extends BYGBiome {
 
     @Override
     public Biome getRiver() {
-        return BuiltinRegistries.BIOME.getOrThrow(Biomes.FROZEN_RIVER);
+        return ExpectPlatformUtils.getOrThrow(Biomes.FROZEN_RIVER);
     }
 
     public Biome randomSubBiome(Context random) {

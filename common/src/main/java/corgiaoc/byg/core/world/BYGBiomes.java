@@ -194,6 +194,7 @@ import corgiaoc.byg.config.json.biomedata.BiomeDataHolders;
 import corgiaoc.byg.core.world.util.WorldGenRegistrationHelper;
 import corgiaoc.byg.mixin.access.BiomeGenerationSettingsAccess;
 import corgiaoc.byg.mixin.access.BiomesAccess;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -555,7 +556,7 @@ public class BYGBiomes {
         for (PreserveBiomeOrder biome : biomeList.values()) {
             Optional<ResourceKey<Biome>> key = BuiltinRegistries.BIOME.getResourceKey(biome.getBiome());
             if (key.isPresent())
-                key.ifPresent(biomeRegistryKey -> BiomesAccess.getIDNameMap().put(BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(key.get())), biomeRegistryKey));
+                key.ifPresent(biomeRegistryKey -> BiomesAccess.getIDNameMap().put(BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(key.get())), biomeRegistryKey));
         }
         BYG.LOGGER.info("Added Numerical Biome ID's!");
 

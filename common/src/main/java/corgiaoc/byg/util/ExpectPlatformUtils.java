@@ -90,4 +90,9 @@ public class ExpectPlatformUtils {
     public static CreativeModeTab createTab(ResourceLocation tabLocation, Item icon){
         throw new AssertionError();
     }
+
+    @ExpectPlatform
+    public static Biome getOrThrow(ResourceKey<Biome> key){
+        throw new AssertionError();
+    }
 }

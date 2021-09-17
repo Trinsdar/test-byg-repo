@@ -2,6 +2,7 @@ package corgiaoc.byg.mixin.common.world.layers;
 
 import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.world.biome.BYGBiome;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
@@ -22,7 +23,7 @@ public abstract class MixinRiverLayer {
         int area1Value = area1.get(((RiverMixerLayer) (Object) this).getParentX(x), ((RiverMixerLayer) (Object) this).getParentY(z));
         int area2Value = area2.get(((RiverMixerLayer) (Object) this).getParentX(x), ((RiverMixerLayer) (Object) this).getParentY(z));
 
-        if (area2Value == BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.RIVER))) {
+        if (area2Value == BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.RIVER))) {
             ResourceLocation area1Location = BYG.biomeRegistryAccess.getKey(BYG.biomeRegistryAccess.byId(area1Value));
 
             if (BYGBiome.BIOME_TO_RIVER_LIST.containsKey(area1Location))

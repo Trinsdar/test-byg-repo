@@ -2,6 +2,7 @@ package corgiaoc.byg.mixin.common.world.layers;
 
 import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.world.biome.BYGBiome;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
@@ -17,16 +18,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinShoreLayer {
 
 
-    private static final int WARM_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.WARM_OCEAN));
-    private static final int LUKEWARM_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.LUKEWARM_OCEAN));
-    private static final int OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.OCEAN));
-    private static final int COLD_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.COLD_OCEAN));
-    private static final int FROZEN_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.FROZEN_OCEAN));
-    private static final int DEEP_WARM_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_WARM_OCEAN));
-    private static final int DEEP_LUKEWARM_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN));
-    private static final int DEEP_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_OCEAN));
-    private static final int DEEP_COLD_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_COLD_OCEAN));
-    private static final int DEEP_FROZEN_OCEAN = BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(Biomes.DEEP_FROZEN_OCEAN));
+    private static final int WARM_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.WARM_OCEAN));
+    private static final int LUKEWARM_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.LUKEWARM_OCEAN));
+    private static final int OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.OCEAN));
+    private static final int COLD_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.COLD_OCEAN));
+    private static final int FROZEN_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.FROZEN_OCEAN));
+    private static final int DEEP_WARM_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_WARM_OCEAN));
+    private static final int DEEP_LUKEWARM_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN));
+    private static final int DEEP_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_OCEAN));
+    private static final int DEEP_COLD_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_COLD_OCEAN));
+    private static final int DEEP_FROZEN_OCEAN = BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.DEEP_FROZEN_OCEAN));
 
 
     @Inject(at = @At("HEAD"), method = "apply", cancellable = true)
