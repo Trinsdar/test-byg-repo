@@ -2,6 +2,7 @@ package corgiaoc.byg.mixin.common.entity;
 
 
 import corgiaoc.byg.core.BYGBlocks;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
@@ -53,8 +54,10 @@ public class MixinEatGrassGoal {
         BlockPos blockpos1 = pos.below();
         if (this.level.getBlockState(blockpos1).is(BYGBlocks.MEADOW_GRASSBLOCK)) {
             if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-                this.level.levelEvent(2001, blockpos1, Block.getId(BYGBlocks.MEADOW_GRASSBLOCK.defaultBlockState()));
-                this.level.setBlock(blockpos1, BYGBlocks.MEADOW_DIRT.defaultBlockState(), 2);
+                if (!Platform.isForge() || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.mob)){
+                    this.level.levelEvent(2001, blockpos1, Block.getId(BYGBlocks.MEADOW_GRASSBLOCK.defaultBlockState()));
+                    this.level.setBlock(blockpos1, BYGBlocks.MEADOW_DIRT.defaultBlockState(), 2);
+                }
                 this.mob.ate();
             }
         }
