@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.common;
+package corgiaoc.byg.mixin.forge;
 
 import corgiaoc.byg.core.BYGBlocks;
 import net.minecraft.core.BlockPos;
@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(WalkNodeEvaluator.class)
-public class MixinWalkNodeProcessor {
+public class MixinWalkNodeProcessor2 {
 
-    @Inject(method = "isBurningBlock", at = @At("HEAD"), cancellable = true)
-    private static void byg_isBurningBlock(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (state.getBlock() == BYGBlocks.FROST_MAGMA) {
-            cir.setReturnValue(true);
+    @Inject(method = "getBlockPathTypeRaw", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+    private static void avoidQuartzCrystals(BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<BlockPathTypes> cir, BlockState blockstate, BlockPathTypes types, Block block, Material material) {
+        if (blockstate.is(BYGBlocks.QUARTZ_CRYSTAL)) {
+            cir.setReturnValue(BlockPathTypes.DAMAGE_OTHER);
         }
     }
 }
