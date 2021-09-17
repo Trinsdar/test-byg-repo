@@ -12,6 +12,7 @@ architectury {
 }
 
 loom {
+    mixinConfigs = ["byg-common.mixins.json"]
     useFabricMixin = true
 }
 
@@ -41,7 +42,7 @@ processResources {
 
 shadowJar {
     exclude "fabric.mod.json"
-
+    exclude "byg.aw"
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
 }
