@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.access;
+package corgiaoc.byg.mixin.fabric.access;
 
 import net.minecraft.world.level.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.access;
+package corgiaoc.byg.mixin.fabric.access;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;

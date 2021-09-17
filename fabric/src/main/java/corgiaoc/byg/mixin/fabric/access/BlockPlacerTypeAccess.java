@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.access;
+package corgiaoc.byg.mixin.fabric.access;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacer;

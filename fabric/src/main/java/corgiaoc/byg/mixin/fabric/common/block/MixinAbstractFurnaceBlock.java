@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.common.block;
+package corgiaoc.byg.mixin.fabric.common.block;
 
 import corgiaoc.byg.core.BYGItems;
 import net.minecraft.world.item.Item;

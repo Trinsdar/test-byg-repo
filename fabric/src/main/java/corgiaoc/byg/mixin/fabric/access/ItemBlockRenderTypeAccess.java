@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.access;
+package corgiaoc.byg.mixin.fabric.access;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;

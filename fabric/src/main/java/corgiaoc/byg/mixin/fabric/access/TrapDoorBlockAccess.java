@@ -1,4 +1,4 @@
-package corgiaoc.byg.mixin.access;
+package corgiaoc.byg.mixin.fabric.access;
 
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;

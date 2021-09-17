@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "corgiaoc.byg.mixin",
+  "package": "corgiaoc.byg.mixin.fabric",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "access.BiomeClimateSettingsAccess",

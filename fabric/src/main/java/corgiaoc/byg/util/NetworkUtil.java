@@ -2,7 +2,7 @@ package corgiaoc.byg.util;
 
 import corgiaoc.byg.BYG;
 import corgiaoc.byg.common.entity.boat.BYGBoatEntity;
-import corgiaoc.byg.mixin.access.ClientLevelAccess;
+import corgiaoc.byg.mixin.fabric.access.ClientLevelAccess;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

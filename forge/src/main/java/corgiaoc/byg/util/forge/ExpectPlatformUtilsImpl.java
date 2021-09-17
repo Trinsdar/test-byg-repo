@@ -1,6 +1,7 @@
-package corgiaoc.byg.util;
+package corgiaoc.byg.util.forge;
 
 import com.mojang.serialization.Codec;
+import corgiaoc.byg.core.BYGItems;
 import me.shedaniel.architectury.ExpectPlatform;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +10,9 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.biome.Biome;
@@ -73,5 +77,24 @@ public class ExpectPlatformUtilsImpl {
 
     public static <T extends AbstractContainerMenu> MenuType<T> createMenu(MenuType.MenuSupplier<T> menuSupplier){
         return new MenuType<>(menuSupplier);
+    }
+
+    public static CreativeModeTab createTab(ResourceLocation tabLocation, Item icon){
+        return new CreativeModeTab(tabLocation.toString()) {
+            @Override
+            public ItemStack makeIcon() {
+                return new ItemStack(icon);
+            }
+
+            @Override
+            public boolean hasSearchBar() {
+                return true;
+            }
+
+            @Override
+            public ResourceLocation getBackgroundImage() {
+                return new ResourceLocation("minecraft", "textures/gui/container/creative_inventory/tab_item_search.png");
+            }
+        };
     }
 }

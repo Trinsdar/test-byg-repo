@@ -1,24 +1,26 @@
-package corgiaoc.byg.util;
+package corgiaoc.byg.util.fabric;
 
 import com.mojang.serialization.Codec;
-import corgiaoc.byg.mixin.access.BiomeClimateSettingsAccess;
-import corgiaoc.byg.mixin.access.BlockPlacerTypeAccess;
-import corgiaoc.byg.mixin.access.BlockTagsAccess;
-import corgiaoc.byg.mixin.access.DoorBlockAccess;
-import corgiaoc.byg.mixin.access.GrassPathBlockAccess;
-import corgiaoc.byg.mixin.access.IronBarsBlockAccess;
-import corgiaoc.byg.mixin.access.MenuTypeAccess;
-import corgiaoc.byg.mixin.access.PressurePlateBlockAccess;
-import corgiaoc.byg.mixin.access.StairBlockAccess;
-import corgiaoc.byg.mixin.access.TrapDoorBlockAccess;
-import corgiaoc.byg.mixin.access.WoodButtonBlockAccess;
-import me.shedaniel.architectury.ExpectPlatform;
+import corgiaoc.byg.mixin.fabric.access.BiomeClimateSettingsAccess;
+import corgiaoc.byg.mixin.fabric.access.BlockPlacerTypeAccess;
+import corgiaoc.byg.mixin.fabric.access.BlockTagsAccess;
+import corgiaoc.byg.mixin.fabric.access.DoorBlockAccess;
+import corgiaoc.byg.mixin.fabric.access.GrassPathBlockAccess;
+import corgiaoc.byg.mixin.fabric.access.IronBarsBlockAccess;
+import corgiaoc.byg.mixin.fabric.access.MenuTypeAccess;
+import corgiaoc.byg.mixin.fabric.access.PressurePlateBlockAccess;
+import corgiaoc.byg.mixin.fabric.access.StairBlockAccess;
+import corgiaoc.byg.mixin.fabric.access.TrapDoorBlockAccess;
+import corgiaoc.byg.mixin.fabric.access.WoodButtonBlockAccess;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -86,5 +88,9 @@ public class ExpectPlatformUtilsImpl {
 
     public static <T extends AbstractContainerMenu> MenuType<T> createMenu(MenuType.MenuSupplier<T> menuSupplier){
         return MenuTypeAccess.create(menuSupplier);
+    }
+
+    public static CreativeModeTab createTab(ResourceLocation tabLocation, Item icon){
+        return FabricItemGroupBuilder.build(tabLocation, () -> new ItemStack(icon));
     }
 }

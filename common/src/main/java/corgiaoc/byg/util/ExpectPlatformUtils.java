@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -81,6 +83,11 @@ public class ExpectPlatformUtils {
 
     @ExpectPlatform
     public static <T extends AbstractContainerMenu> MenuType<T> createMenu(MenuType.MenuSupplier<T> menuSupplier){
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static CreativeModeTab createTab(ResourceLocation tabLocation, Item icon){
         throw new AssertionError();
     }
 }

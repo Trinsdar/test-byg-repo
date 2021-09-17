@@ -18,7 +18,7 @@ architectury {
 }
 
 minecraft{
-    accessWidener = file('src/main/resources/byg.aw')
+    accessWidener = file('../fabric/src/main/resources/byg.aw')
 }
 
 afterEvaluate {
