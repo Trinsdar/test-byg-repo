@@ -30,6 +30,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) {
         transitive = false
     }
+    modRuntime ("com.github.Reforged-Mods:FabricBiomeApiReforged:1.0.5")
 }
 
 processResources {
