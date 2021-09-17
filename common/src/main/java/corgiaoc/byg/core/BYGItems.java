@@ -1245,9 +1245,7 @@ public class BYGItems {
 
     public static Item createItem(Item item, ResourceLocation id) {
         if (id != null && !id.equals(new ResourceLocation("minecraft:air"))) {
-            if (Platform.isFabric()) {
-                Registry.register(Registry.ITEM, id, item);
-            }
+            if (Platform.isFabric()) Registry.register(Registry.ITEM, id, item);
             itemsList.put(id, item);
             return item;
         } else {
@@ -1256,9 +1254,7 @@ public class BYGItems {
     }
 
     public static Item createItem(Item item, String id) {
-        if (Platform.isFabric()) {
-            Registry.register(Registry.ITEM, new ResourceLocation(BYG.MOD_ID, id), item);
-        }
+        if (Platform.isFabric()) Registry.register(Registry.ITEM, new ResourceLocation(BYG.MOD_ID, id), item);
         itemsList.put(new ResourceLocation(BYG.MOD_ID, id), item);
         return item;
     }

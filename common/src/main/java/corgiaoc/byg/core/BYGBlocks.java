@@ -1967,9 +1967,8 @@ public class BYGBlocks {
     }
 
     public static Block createBlock(Block block, String id) {
-        if (Platform.isFabric()) {
-            Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), block);
-        }
+        if (Platform.isFabric())
+        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), block);
         blocksList.put(new ResourceLocation(BYG.MOD_ID, id), block);
         return block;
     }
