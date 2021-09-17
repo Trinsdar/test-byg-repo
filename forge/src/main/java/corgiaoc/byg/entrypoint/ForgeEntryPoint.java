@@ -18,23 +18,23 @@ import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import corgiaoc.byg.data.providers.BYGBlockTagsProvider;
 import corgiaoc.byg.mixin.access.FillerBlockTypeAccess;
 import me.shedaniel.architectury.platform.forge.EventBuses;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.network.Packet;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.blockplacer.BlockPlacerType;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -117,7 +117,7 @@ public class ForgeEntryPoint implements EntryPoint {
     }
 
     @SubscribeEvent
-    public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> event) {
+    public static void registerTileEntities(RegistryEvent.Register<BlockEntityType<?>> event) {
         BYG.LOGGER.debug("BYG: Registering block entities...");
         BYGTileEntities.BLOCK_ENTITIES.forEach(entityType -> event.getRegistry().register(entityType));
         BYG.LOGGER.info("BYG: Block Entities registered!");
@@ -131,7 +131,7 @@ public class ForgeEntryPoint implements EntryPoint {
     }
 
     @SubscribeEvent
-    public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
+    public static void registerContainers(RegistryEvent.Register<MenuType<?>> event) {
         BYG.LOGGER.debug("BYG: Registering block entities...");
         BYGEntities.init();
         BYGContainerTypes.CONTAINER_TYPES.forEach(containerType -> event.getRegistry().register(containerType));
@@ -149,7 +149,7 @@ public class ForgeEntryPoint implements EntryPoint {
     }
 
     @SubscribeEvent
-    public static void registerDecorators(RegistryEvent.Register<Placement<?>> event) {
+    public static void registerDecorators(RegistryEvent.Register<FeatureDecorator<?>> event) {
         BYG.LOGGER.debug("BYG: Registering decorators...");
         BYGDecorators.init();
         BYGDecorators.decorators.forEach(decorator -> event.getRegistry().register(decorator));
@@ -157,7 +157,7 @@ public class ForgeEntryPoint implements EntryPoint {
     }
 
     @SubscribeEvent
-    public static void registerStructures(RegistryEvent.Register<Structure<?>> event) {
+    public static void registerStructures(RegistryEvent.Register<StructureFeature<?>> event) {
         BYG.LOGGER.debug("BYG: Registering structures...");
         BYGStructures.init();
 //            BYGStructures.structures.forEach(structure -> event.getRegistry().register(structure));
@@ -168,7 +168,7 @@ public class ForgeEntryPoint implements EntryPoint {
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         BYG.LOGGER.debug("BYG: Registering features...");
-        FillerBlockTypeAccess.setNetherFillerType(new TagMatchRuleTest(BlockTags.BASE_STONE_NETHER));
+        FillerBlockTypeAccess.setNetherFillerType(new TagMatchTest(BlockTags.BASE_STONE_NETHER));
         BYGFeatures.init();
         BYGFeatures.features.forEach(feature -> event.getRegistry().register(feature));
         BYG.LOGGER.info("BYG: Features registered!");
