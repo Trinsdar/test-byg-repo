@@ -9,6 +9,7 @@ import corgiaoc.byg.core.world.BYGStructures;
 import corgiaoc.byg.core.world.BYGSurfaceBuilders;
 import corgiaoc.byg.mixin.access.DimensionStructuresSettingsAccess;
 import corgiaoc.byg.mixin.access.StructureAccess;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -39,9 +40,9 @@ public class WorldGenRegistrationHelper {
         if (Registry.SURFACE_BUILDER.keySet().contains(bygID))
             throw new IllegalStateException("Surface Builder ID: \"" + bygID.toString() + "\" already exists in the Surface Builder registry!");
 
+        if (Platform.isFabric())
         Registry.register(Registry.SURFACE_BUILDER, bygID, surfaceBuilder);
-//        surfaceBuilder.setRegistryName(bygID); //Forge
-        BYGSurfaceBuilders.surfaceBuilders.add(surfaceBuilder);
+        BYGSurfaceBuilders.surfaceBuilders.put(bygID, surfaceBuilder);
         return surfaceBuilder;
     }
 
@@ -59,9 +60,9 @@ public class WorldGenRegistrationHelper {
         if (Registry.FEATURE.keySet().contains(bygID))
             throw new IllegalStateException("Feature ID: \"" + bygID.toString() + "\" already exists in the Features registry!");
 
+        if (Platform.isFabric())
         Registry.register(Registry.FEATURE, bygID, feature);
-//        feature.setRegistryName(bygID); //Forge
-        BYGFeatures.features.add(feature);
+        BYGFeatures.features.put(bygID, feature);
         return feature;
     }
 
@@ -69,9 +70,9 @@ public class WorldGenRegistrationHelper {
         ResourceLocation bygID = new ResourceLocation(BYG.MOD_ID, id);
         if (Registry.STRUCTURE_FEATURE.keySet().contains(bygID))
             throw new IllegalStateException("Structure Feature ID: \"" + bygID.toString() + "\" already exists in the Structure Features registry!");
+        if (Platform.isFabric())
         Registry.register(Registry.STRUCTURE_FEATURE, bygID, structure);
-//        structure.setRegistryName(bygID);
-        BYGStructures.structures.add(structure);
+        BYGStructures.structures.put(bygID, structure);
         StructureFeature.STRUCTURES_REGISTRY.put(bygID.toString(), structure);
 
         StructureAccess.getStructureStep().put(structure, decorationStage);
@@ -114,9 +115,9 @@ public class WorldGenRegistrationHelper {
         if (Registry.DECORATOR.keySet().contains(bygID))
             throw new IllegalStateException("Decorator ID: \"" + bygID.toString() + "\" already exists in the Decorator registry!");
 
+        if (Platform.isFabric())
         Registry.register(Registry.DECORATOR, bygID, decorator);
-//        decorator.setRegistryName(bygID); //Forge
-        BYGDecorators.decorators.add(decorator);
+        BYGDecorators.decorators.put(bygID, decorator);
         return decorator;
     }
 
@@ -127,13 +128,13 @@ public class WorldGenRegistrationHelper {
         if (BuiltinRegistries.BIOME.keySet().contains(bygID))
             throw new IllegalStateException("Biome ID: \"" + bygID.toString() + "\" already exists in the Biome registry!");
 
+        if (Platform.isFabric())
         Registry.register(BuiltinRegistries.BIOME, bygID, biome);
-//        biome.setRegistryName(bygID); //Forge
 
         if (integerList.contains(numericalID))
             BYG.LOGGER.warn("Duplicate Biome Numerical ID: " + numericalID + " at byg:" + id);
 
-        BYGBiomes.biomeList.add(new BYGBiomes.PreserveBiomeOrder(biome, numericalID));
+        BYGBiomes.biomeList.put(bygID, new BYGBiomes.PreserveBiomeOrder(biome, numericalID));
         integerList.add(numericalID);
         return biome;
     }

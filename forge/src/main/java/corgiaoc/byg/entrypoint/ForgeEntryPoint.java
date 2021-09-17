@@ -49,6 +49,10 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 
 @Mod("byg")
@@ -57,7 +61,7 @@ public class ForgeEntryPoint implements EntryPoint {
 
     public ForgeEntryPoint() {
 //        NetherConfig.loadConfig(NetherConfig.COMMON_CONFIG, configDirectory().resolve(BYG.MOD_ID + "-nether.toml"));
-        EventBuses.registerModEventBus(BYG.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
+        //EventBuses.registerModEventBus(BYG.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
@@ -97,36 +101,36 @@ public class ForgeEntryPoint implements EntryPoint {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         BYG.LOGGER.debug("BYG: Registering blocks...");
-        BYGBlocks.blocksList.forEach(block -> event.getRegistry().register(block));
-        BYGBlocks.flowerPotBlocks.forEach(block -> event.getRegistry().register(block));
+        BYGBlocks.blocksList.forEach((name, block) -> event.getRegistry().register(block.setRegistryName(name)));
+        BYGBlocks.flowerPotBlocks.forEach((name, block) -> event.getRegistry().register(block.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Blocks registered!");
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         BYG.LOGGER.debug("BYG: Registering items...");
-        BYGItems.itemsList.forEach(item -> event.getRegistry().register(item));
+        BYGItems.itemsList.forEach((name, item) -> event.getRegistry().register(item.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Items registered!");
     }
 
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
         BYG.LOGGER.debug("BYG: Registering entities...");
-        BYGEntities.entities.forEach(entityType -> event.getRegistry().register(entityType));
+        BYGEntities.entities.forEach((name, entityType) -> event.getRegistry().register(entityType.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Entities registered!");
     }
 
     @SubscribeEvent
     public static void registerTileEntities(RegistryEvent.Register<BlockEntityType<?>> event) {
         BYG.LOGGER.debug("BYG: Registering block entities...");
-        BYGTileEntities.BLOCK_ENTITIES.forEach(entityType -> event.getRegistry().register(entityType));
+        BYGTileEntities.BLOCK_ENTITIES.forEach((name, entityType) -> event.getRegistry().register(entityType.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Block Entities registered!");
     }
 
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         BYG.LOGGER.debug("BYG: Registering sounds...");
-        BYGSounds.SOUNDS.forEach(soundEvent -> event.getRegistry().register(soundEvent));
+        BYGSounds.SOUNDS.forEach((name, soundEvent) -> event.getRegistry().register(soundEvent.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Sounds registered!");
     }
 
@@ -134,7 +138,7 @@ public class ForgeEntryPoint implements EntryPoint {
     public static void registerContainers(RegistryEvent.Register<MenuType<?>> event) {
         BYG.LOGGER.debug("BYG: Registering block entities...");
         BYGEntities.init();
-        BYGContainerTypes.CONTAINER_TYPES.forEach(containerType -> event.getRegistry().register(containerType));
+        BYGContainerTypes.CONTAINER_TYPES.forEach((name, containerType) -> event.getRegistry().register(containerType.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Block Entities registered!");
     }
 
@@ -142,8 +146,8 @@ public class ForgeEntryPoint implements EntryPoint {
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
         BYG.LOGGER.debug("BYG: Registering biomes...");
         BYGBiomes.init();
-        BYGBiomes.biomeList.sort(Comparator.comparingInt(BYGBiomes.PreserveBiomeOrder::getOrderPosition));
-        BYGBiomes.biomeList.forEach(preserveBiomeOrder -> event.getRegistry().register(preserveBiomeOrder.getBiome()));
+        BYGBiomes.biomeList = BYGBiomes.biomeList.entrySet().stream().sorted(Comparator.comparingInt(r -> r.getValue().getOrderPosition())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        BYGBiomes.biomeList.forEach((name, preserveBiomeOrder) -> event.getRegistry().register(preserveBiomeOrder.getBiome().setRegistryName(name)));
         BYGBiomes.CANYON_KEY = BYGBiomes.CANYON.getKey();
         BYG.LOGGER.info("BYG: Biomes registered!");
     }
@@ -152,7 +156,7 @@ public class ForgeEntryPoint implements EntryPoint {
     public static void registerDecorators(RegistryEvent.Register<FeatureDecorator<?>> event) {
         BYG.LOGGER.debug("BYG: Registering decorators...");
         BYGDecorators.init();
-        BYGDecorators.decorators.forEach(decorator -> event.getRegistry().register(decorator));
+        BYGDecorators.decorators.forEach((name, decorator) -> event.getRegistry().register(decorator.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Decorators registered!");
     }
 
@@ -160,7 +164,7 @@ public class ForgeEntryPoint implements EntryPoint {
     public static void registerStructures(RegistryEvent.Register<StructureFeature<?>> event) {
         BYG.LOGGER.debug("BYG: Registering structures...");
         BYGStructures.init();
-//            BYGStructures.structures.forEach(structure -> event.getRegistry().register(structure));
+//            BYGStructures.structures.forEach((name, structure) -> event.getRegistry().register(structure.setRegistryName(name)));
 //            Structure.STRUCTURE_DECORATION_STAGE_MAP.forEach(((structure, decoration) -> System.out.println(Registry.STRUCTURE_FEATURE.getKey(structure).toString())));
         BYG.LOGGER.info("BYG: Structures registered!");
     }
@@ -170,7 +174,7 @@ public class ForgeEntryPoint implements EntryPoint {
         BYG.LOGGER.debug("BYG: Registering features...");
         FillerBlockTypeAccess.setNetherFillerType(new TagMatchTest(BlockTags.BASE_STONE_NETHER));
         BYGFeatures.init();
-        BYGFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+        BYGFeatures.features.forEach((name, feature) -> event.getRegistry().register(feature.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Features registered!");
     }
 
@@ -178,7 +182,7 @@ public class ForgeEntryPoint implements EntryPoint {
     public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
         BYG.LOGGER.debug("BYG: Registering surface builders...");
         BYGSurfaceBuilders.init();
-        BYGSurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
+        BYGSurfaceBuilders.surfaceBuilders.forEach((name, surfaceBuilder) -> event.getRegistry().register(surfaceBuilder.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Surface builders Registered!");
     }
 
@@ -186,7 +190,7 @@ public class ForgeEntryPoint implements EntryPoint {
     public static void registerBlockPlacerType(RegistryEvent.Register<BlockPlacerType<?>> event) {
         BYG.LOGGER.debug("BYG: Registering block placer types...");
         BYGBlockPlacerTypes.init();
-        BYGBlockPlacerTypes.types.forEach(type -> event.getRegistry().register(type));
+        BYGBlockPlacerTypes.types.forEach((name, type) -> event.getRegistry().register(type.setRegistryName(name)));
         BYG.LOGGER.info("BYG: Registering block placer types!");
     }
 

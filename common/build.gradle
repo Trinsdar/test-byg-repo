@@ -21,6 +21,12 @@ minecraft{
     accessWidener = file('src/main/resources/byg.aw')
 }
 
+afterEvaluate {
+    remapJar {
+        remapAccessWidener.set false
+    }
+}
+
 java {
     withSourcesJar()
 }

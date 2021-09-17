@@ -8,15 +8,18 @@ import corgiaoc.byg.common.world.decorator.MotionBlockingNoLeavesCountExtra;
 import corgiaoc.byg.common.world.decorator.UndergroundCountExtra;
 import corgiaoc.byg.common.world.decorator.config.AtOrBelowSeaLevelCountExtraConfig;
 import corgiaoc.byg.core.world.util.WorldGenRegistrationHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.configurations.CountConfiguration;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BYGDecorators {
-    public static List<FeatureDecorator<?>> decorators = new ArrayList<>();
+    public static Map<ResourceLocation, FeatureDecorator<?>> decorators = new LinkedHashMap<>();
 
     public static final FeatureDecorator<CountConfiguration> ANY_WATER_OR_SOLID_SURFACE = WorldGenRegistrationHelper.createDecorator("water_or_solid_surface", new AnyWaterOrSolidSurface(CountConfiguration.CODEC));
     public static final FeatureDecorator<FrequencyWithExtraChanceDecoratorConfiguration> OCEAN_FLOOR_COUNT_EXTRA = WorldGenRegistrationHelper.createDecorator("ocean_floor_count_extra", new AtOceanFloorWithExtra(FrequencyWithExtraChanceDecoratorConfiguration.CODEC));

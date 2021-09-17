@@ -63,6 +63,7 @@ import corgiaoc.byg.mixin.access.StairBlockAccess;
 import corgiaoc.byg.mixin.access.TrapDoorBlockAccess;
 import corgiaoc.byg.mixin.access.WoodButtonBlockAccess;
 import corgiaoc.byg.util.ExpectPlatformUtils;
+import me.shedaniel.architectury.platform.Platform;
 import me.shedaniel.architectury.registry.BlockProperties;
 import me.shedaniel.architectury.registry.ToolType;
 import net.minecraft.core.BlockPos;
@@ -98,15 +99,17 @@ import net.minecraft.world.level.material.MaterialColor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.ToIntFunction;
 
 @SuppressWarnings("deprecation")
 public class BYGBlocks {
-    public static List<Block> blocksList = new ArrayList<>();
+    public static Map<ResourceLocation, Block> blocksList = new LinkedHashMap<>();
 
 
-    public static List<Block> flowerPotBlocks = new ArrayList<>();
+    public static Map<ResourceLocation, Block> flowerPotBlocks = new LinkedHashMap<>();
     public static List<ResourceLocation> flowerIDs = new ArrayList<>();
 
     public static final Block ASPEN_PLANKS = createPlanks("aspen_planks");
@@ -1818,9 +1821,10 @@ public class BYGBlocks {
 
     public static void createPottedBlock(Block blockForPot, String id) {
         Block createBlock = new FlowerPotBlock(blockForPot, BlockProperties.of(Material.DECORATION).instabreak().noOcclusion());
-        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, "potted_" + id), createBlock);
-//        createBlock.setRegistryName(new ResourceLocation(BYG.MOD_ID, "potted_" + id)); //Forge
-        flowerPotBlocks.add(createBlock);
+        if (Platform.isFabric()) {
+            Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, "potted_" + id), createBlock);
+        }
+        flowerPotBlocks.put(new ResourceLocation(BYG.MOD_ID, id), createBlock);;
 //        blocksList.add(createBlock);
     }
 
@@ -1963,8 +1967,10 @@ public class BYGBlocks {
     }
 
     public static Block createBlock(Block block, String id) {
-        Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), block);
-        blocksList.add(block);
+        if (Platform.isFabric()) {
+            Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, id), block);
+        }
+        blocksList.put(new ResourceLocation(BYG.MOD_ID, id), block);
         return block;
     }
 

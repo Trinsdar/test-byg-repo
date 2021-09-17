@@ -29,6 +29,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -38,9 +39,14 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 
 public class FabricEntryPoint implements EntryPoint, ModInitializer {
@@ -101,46 +107,46 @@ public class FabricEntryPoint implements EntryPoint, ModInitializer {
 
     public static void registerBlocks() {
         BYG.LOGGER.debug("BYG: Registering blocks...");
-        List<Block> blocksList = BYGBlocks.blocksList;
-        List<Block> flowerPotBlocks = BYGBlocks.flowerPotBlocks;
+        //List<Block> blocksList = BYGBlocks.blocksList;
+        //List<Block> flowerPotBlocks = BYGBlocks.flowerPotBlocks;
         BYG.LOGGER.info("BYG: Blocks registered!");
     }
 
     public static void registerItems() {
         BYG.LOGGER.debug("BYG: Registering items...");
-        List<Item> itemsList = BYGItems.itemsList;
+        //List<Item> itemsList = BYGItems.itemsList;
         BYG.LOGGER.info("BYG: Items registered!");
     }
 
     public static void registerEntities() {
         BYG.LOGGER.debug("BYG: Registering entities...");
-        Set<EntityType<?>> entities = BYGEntities.entities;
+        //Set<EntityType<?>> entities = BYGEntities.entities;
         BYG.LOGGER.info("BYG: Entities registered!");
     }
 
     public static void registerTileEntities() {
         BYG.LOGGER.debug("BYG: Registering block entities...");
-        List<BlockEntityType<?>> blockEntities = BYGTileEntities.BLOCK_ENTITIES;
+        //List<BlockEntityType<?>> blockEntities = BYGTileEntities.BLOCK_ENTITIES;
         BYG.LOGGER.info("BYG: Block Entities registered!");
     }
 
     public static void registerSounds() {
         BYG.LOGGER.debug("BYG: Registering sounds...");
-        List<SoundEvent> sounds = BYGSounds.SOUNDS;
+        //List<SoundEvent> sounds = BYGSounds.SOUNDS;
         BYG.LOGGER.info("BYG: Sounds registered!");
     }
 
     public static void registerContainers() {
         BYG.LOGGER.debug("BYG: Registering block entities...");
         BYGEntities.init();
-        List<MenuType<?>> containerTypes = BYGContainerTypes.CONTAINER_TYPES;
+        //List<MenuType<?>> containerTypes = BYGContainerTypes.CONTAINER_TYPES;
         BYG.LOGGER.info("BYG: Block Entities registered!");
     }
 
     public static void registerBiomes() {
         BYG.LOGGER.debug("BYG: Registering biomes...");
         BYGBiomes.init();
-        BYGBiomes.biomeList.sort(Comparator.comparingInt(BYGBiomes.PreserveBiomeOrder::getOrderPosition));
+        BYGBiomes.biomeList = BYGBiomes.biomeList.entrySet().stream().sorted(Comparator.comparingInt(r -> r.getValue().getOrderPosition())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         BYGBiomes.CANYON_KEY = BYGBiomes.CANYON.getKey();
         BYG.LOGGER.info("BYG: Biomes registered!");
     }
@@ -148,7 +154,7 @@ public class FabricEntryPoint implements EntryPoint, ModInitializer {
     public static void registerDecorators() {
         BYG.LOGGER.debug("BYG: Registering decorators...");
         BYGDecorators.init();
-        List<FeatureDecorator<?>> decorators = BYGDecorators.decorators;
+        //List<FeatureDecorator<?>> decorators = BYGDecorators.decorators;
         BYG.LOGGER.info("BYG: Decorators registered!");
     }
 
@@ -164,21 +170,21 @@ public class FabricEntryPoint implements EntryPoint, ModInitializer {
         BYG.LOGGER.debug("BYG: Registering features...");
         FillerBlockTypeAccess.setNetherFillerType(new TagMatchTest(BlockTags.BASE_STONE_NETHER));
         BYGFeatures.init();
-        List<Feature<?>> features = BYGFeatures.features;
+        //List<Feature<?>> features = BYGFeatures.features;
         BYG.LOGGER.info("BYG: Features registered!");
     }
 
     public static void registerSurfaceBuilders() {
         BYG.LOGGER.debug("BYG: Registering surface builders...");
         BYGSurfaceBuilders.init();
-        List<SurfaceBuilder<?>> surfaceBuilders = BYGSurfaceBuilders.surfaceBuilders;
+        //List<SurfaceBuilder<?>> surfaceBuilders = BYGSurfaceBuilders.surfaceBuilders;
         BYG.LOGGER.info("BYG: Surface builders Registered!");
     }
 
     public static void registerBlockPlacerType() {
         BYG.LOGGER.debug("BYG: Registering block placer types...");
         BYGBlockPlacerTypes.init();
-        List<BlockPlacerType<?>> types = BYGBlockPlacerTypes.types;
+        //List<BlockPlacerType<?>> types = BYGBlockPlacerTypes.types;
         BYG.LOGGER.info("BYG: Registering block placer types!");
     }
 }

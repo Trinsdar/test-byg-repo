@@ -8,11 +8,13 @@ import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacer;
 import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BYGBlockPlacerTypes {
 
-    public static List<BlockPlacerType<?>> types = new ArrayList<>();
+    public static Map<ResourceLocation, BlockPlacerType<?>> types = new LinkedHashMap<>();
 
     public static final BlockPlacerType<DoubleBlockPlacer> DOUBLE_BLOCK = createBlockPlacer("simple_block_placer", ExpectPlatformUtils.createBlockPlacerType(DoubleBlockPlacer.CODEC));
     public static final BlockPlacerType<OnWaterOnlyBlockPlacer> WATER_ONLY = createBlockPlacer("water_only", ExpectPlatformUtils.createBlockPlacerType(OnWaterOnlyBlockPlacer.CODEC));
@@ -21,7 +23,7 @@ public class BYGBlockPlacerTypes {
     private static <P extends BlockPlacer> BlockPlacerType<P> createBlockPlacer(String id, BlockPlacerType<P> type) {
         Registry.register(Registry.BLOCK_PLACER_TYPES, new ResourceLocation(BYG.MOD_ID, id), type);
 //        type.setRegistryName(new ResourceLocation(BYG.MOD_ID, id));
-        types.add(type);
+        types.put(new ResourceLocation(BYG.MOD_ID, id), type);
         return type;
     }
 

@@ -270,6 +270,7 @@ import corgiaoc.byg.common.world.feature.overworld.trees.zelkova.ZelkovaTree2;
 import corgiaoc.byg.common.world.feature.overworld.trees.zelkova.ZelkovaTree3;
 import corgiaoc.byg.common.world.feature.overworld.volcano.VolcanoFeature;
 import corgiaoc.byg.core.world.util.WorldGenRegistrationHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
@@ -277,13 +278,15 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static corgiaoc.byg.core.world.util.WorldGenRegistrationHelper.createFeature;
 
 public class BYGFeatures {
 
-    public static List<Feature<?>> features = new ArrayList<>();
+    public static Map<ResourceLocation, Feature<?>> features = new LinkedHashMap<>();
 
     public static final Feature<NoneFeatureConfiguration> DUMMY_TREE = createFeature("dummy_tree", new SmallPineTree(NoneFeatureConfiguration.CODEC.stable()));
     public static final Feature<NoneFeatureConfiguration> BEEHIVE = createFeature("beehive", new BeeHiveFeature(NoneFeatureConfiguration.CODEC.stable()));

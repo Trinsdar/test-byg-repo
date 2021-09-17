@@ -20,6 +20,7 @@ import corgiaoc.byg.common.properties.items.itemtiers.LigniteItem;
 import corgiaoc.byg.mixin.access.AxeItemAccess;
 import corgiaoc.byg.mixin.access.HoeItemAccess;
 import corgiaoc.byg.mixin.access.PickaxeItemAccess;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -36,12 +37,14 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.WaterLilyBlockItem;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("deprecation")
 public class BYGItems {
 
-    public static List<Item> itemsList = new ArrayList<>();
+    public static Map<ResourceLocation, Item> itemsList = new LinkedHashMap<>();
 
     public static final Item BYG_LOGO = createItem(new Item((new Item.Properties())), "byg_logo");
     public static final Item PEAT = createItem(new PeatBlockItem(BYGBlocks.PEAT, new Item.Properties().tab(BYGCreativeTab.CREATIVE_TAB)), Registry.BLOCK.getKey(BYGBlocks.PEAT));
@@ -1242,9 +1245,10 @@ public class BYGItems {
 
     public static Item createItem(Item item, ResourceLocation id) {
         if (id != null && !id.equals(new ResourceLocation("minecraft:air"))) {
-            Registry.register(Registry.ITEM, id, item);
-//            item.setRegistryName(id); //Forge
-            itemsList.add(item);
+            if (Platform.isFabric()) {
+                Registry.register(Registry.ITEM, id, item);
+            }
+            itemsList.put(id, item);
             return item;
         } else {
             return null;
@@ -1252,9 +1256,10 @@ public class BYGItems {
     }
 
     public static Item createItem(Item item, String id) {
-        Registry.register(Registry.ITEM, new ResourceLocation(BYG.MOD_ID, id), item);
-//        item.setRegistryName(new ResourceLocation(BYG.MOD_ID, id)); //Forge
-        itemsList.add(item);
+        if (Platform.isFabric()) {
+            Registry.register(Registry.ITEM, new ResourceLocation(BYG.MOD_ID, id), item);
+        }
+        itemsList.put(new ResourceLocation(BYG.MOD_ID, id), item);
         return item;
     }
 

@@ -53,15 +53,18 @@ import corgiaoc.byg.common.world.surfacebuilder.config.FillSurfaceBuilderConfig;
 import corgiaoc.byg.common.world.surfacebuilder.config.PointedSBConfig;
 import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.core.world.util.WorldGenRegistrationHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BYGSurfaceBuilders {
-    public static List<SurfaceBuilder<?>> surfaceBuilders = new ArrayList<>();
+    public static Map<ResourceLocation, SurfaceBuilder<?>> surfaceBuilders = new LinkedHashMap<>();
 
     public static final SurfaceBuilder<SurfaceBuilderBaseConfiguration> BOREAL = WorldGenRegistrationHelper.createSurfaceBuilder("boreal", new BorealForestSB(SurfaceBuilderBaseConfiguration.CODEC));
     public static final SurfaceBuilder<SurfaceBuilderBaseConfiguration> BASALT_BARRERA = WorldGenRegistrationHelper.createSurfaceBuilder("basalt_barrera", new BasaltBarreraSB(SurfaceBuilderBaseConfiguration.CODEC));

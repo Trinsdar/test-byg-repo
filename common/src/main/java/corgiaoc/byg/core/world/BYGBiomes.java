@@ -206,6 +206,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -214,7 +215,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
 public class BYGBiomes {
-    public static List<PreserveBiomeOrder> biomeList = new ArrayList<>();
+    public static Map<ResourceLocation, PreserveBiomeOrder> biomeList = new LinkedHashMap<>();
 
     public static Biome DUMMY_BIOME = WorldGenRegistrationHelper.createBiome("dummy", new DummySubBiome().getBiome(), 2000);
 
@@ -551,7 +552,7 @@ public class BYGBiomes {
     //Why? This is how worldtype's using the BiomeLayerSampler get the numerical ID's to sample.
     public static void addBiomeNumericalIDs() {
         BYG.LOGGER.info("Adding Numerical Biome ID's");
-        for (PreserveBiomeOrder biome : biomeList) {
+        for (PreserveBiomeOrder biome : biomeList.values()) {
             Optional<ResourceKey<Biome>> key = BuiltinRegistries.BIOME.getResourceKey(biome.getBiome());
             if (key.isPresent())
                 key.ifPresent(biomeRegistryKey -> BiomesAccess.getIDNameMap().put(BuiltinRegistries.BIOME.getId(BuiltinRegistries.BIOME.getOrThrow(key.get())), biomeRegistryKey));
