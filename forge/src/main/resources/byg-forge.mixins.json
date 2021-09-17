@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "corgiaoc.byg.mixin.forge",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinBYGOreBlock",
+    "MixinScorchedPlantBlock",
+    "MixinStructureTemplate",
+    "MixinWalkNodeProcessor2"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

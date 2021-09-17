@@ -1820,7 +1820,7 @@ public class BYGBlocks {
         if (Platform.isFabric()) {
             Registry.register(Registry.BLOCK, new ResourceLocation(BYG.MOD_ID, "potted_" + id), createBlock);
         }
-        flowerPotBlocks.put(new ResourceLocation(BYG.MOD_ID, id), createBlock);;
+        flowerPotBlocks.put(new ResourceLocation(BYG.MOD_ID, "potted_" + id), createBlock);;
 //        blocksList.add(createBlock);
     }
 

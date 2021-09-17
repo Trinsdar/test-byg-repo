@@ -12,7 +12,7 @@ architectury {
 }
 
 loom {
-    mixinConfigs = ["byg-common.mixins.json"]
+    mixinConfigs = ["byg-common.mixins.json", "byg-forge.mixins.json"]
     useFabricMixin = true
 }
 

@@ -16,7 +16,8 @@
     "access.StairBlockAccess",
     "access.TrapDoorBlockAccess",
     "access.WoodButtonBlockAccess",
-    "common.block.MixinAbstractFurnaceBlock"
+    "common.block.MixinAbstractFurnaceBlock",
+    "common.MixinWalkNodeProcessor2"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,7 @@
 package corgiaoc.byg.common.properties.blocks;
 
 import corgiaoc.byg.common.world.feature.overworld.trees.util.TreeSpawner;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
@@ -30,6 +31,7 @@ public class FloweringJacarandaBushBlock extends JacarandaBushBlock implements B
         if (state.getValue(STAGE) == 0) {
             world.setBlock(pos, state.cycle(STAGE), 4);
         } else {
+            if (!Platform.isForge() || !net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(world, rand, pos)) return;
             this.tree.spawn(world, world.getChunkSource().getGenerator(), pos, state, rand);
         }
     }
