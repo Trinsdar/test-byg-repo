@@ -2,6 +2,7 @@ package corgiaoc.byg.common.properties.blocks.nether.sythian;
 
 import corgiaoc.byg.core.BYGBlocks;
 import edu.umd.cs.findbugs.annotations.Nullable;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -53,8 +54,8 @@ public class SythianStalkBlock extends BambooBlock {
         if (!state.canSurvive(worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
             //todo abstract this somehow
-        } /*else if (state.getValue(STAGE) == 0) {
-            if (true) {
+        } else if (state.getValue(STAGE) == 0) {
+            if (Platform.isForge()) {
                 int i = this.getHeightBelowUpToMax(worldIn, pos) + 1;
                 if (i < 16 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(3) == 0 && worldIn.isEmptyBlock(pos.above()) && worldIn.getRawBrightness(pos.above(), 0) <= 12)) {
                     this.growBamboo(state, worldIn, pos, rand, i);
@@ -62,7 +63,7 @@ public class SythianStalkBlock extends BambooBlock {
                 }
             }
 
-        }*/
+        }
     }
 
     @Override

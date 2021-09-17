@@ -2,6 +2,7 @@ package corgiaoc.byg.common.properties.items.itemtiers;
 
 
 import corgiaoc.byg.core.BYGBlocks;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,14 +56,19 @@ public class BYGWaterSilkItem extends BlockItem {
                 FluidState FluidState = worldIn.getFluidState(blockpos);
                 if ((FluidState.getType() == Fluids.WATER || material == Material.ICE) && worldIn.isEmptyBlock(blockpos1)) {
                     // special case for handling block placement with water lilies
-                    worldIn.setBlock(blockpos1, BYGBlocks.WATER_SILK.defaultBlockState(), 11);
+
                     //todo abstract this
-                    /*net.minecraftforge.common.util.BlockSnapshot blocksnapshot = net.minecraftforge.common.util.BlockSnapshot.create(worldIn.dimension(), worldIn, blockpos1);
-                    worldIn.setBlock(blockpos1, BYGBlocks.WATER_SILK.defaultBlockState(), 11);
-                    if (net.minecraftforge.event.ForgeEventFactory.onBlockPlace(playerIn, blocksnapshot, Direction.UP)) {
-                        blocksnapshot.restore(true, false);
-                        return new ActionResult<ItemStack>(ActionResultType.FAIL, itemstack);
-                    }*/
+                    if (Platform.isForge()){
+                        net.minecraftforge.common.util.BlockSnapshot blocksnapshot = net.minecraftforge.common.util.BlockSnapshot.create(worldIn.dimension(), worldIn, blockpos1);
+                        worldIn.setBlock(blockpos1, BYGBlocks.WATER_SILK.defaultBlockState(), 11);
+                        if (net.minecraftforge.event.ForgeEventFactory.onBlockPlace(playerIn, blocksnapshot, Direction.UP)) {
+                            blocksnapshot.restore(true, false);
+                            return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
+                        }
+                    } else {
+                        worldIn.setBlock(blockpos1, BYGBlocks.WATER_SILK.defaultBlockState(), 11);
+                    }
+
 
                     if (playerIn instanceof ServerPlayer) {
                         CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) playerIn, blockpos1, itemstack);
