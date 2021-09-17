@@ -2,6 +2,7 @@ package corgiaoc.byg.common.properties.blocks.end;
 
 import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.core.BYGItems;
+import me.shedaniel.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
@@ -63,11 +64,21 @@ public class TheriumCrystalBlock extends Block implements BonemealableBlock {
         Block block1 = worldIn.getBlockState(pos.below()).getBlock();
         int i = state.getValue(AGE);
         //todo abstract this
-        if (i < 3 && block1 == BYGBlocks.THERIUM_BLOCK && random.nextInt(5) == 0/*net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)*/) {
+        boolean rand = random.nextInt(5) == 0;
+        if (i < 3 && block1 == BYGBlocks.THERIUM_BLOCK && isRand(worldIn, pos, state, rand)) {
             worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(i + 1)), 2);
-            //net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+            if (Platform.isForge()) {
+                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+            }
         }
 
+    }
+
+    private boolean isRand(ServerLevel level, BlockPos pos, BlockState state, boolean rand){
+        if (Platform.isForge()){
+            return net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, rand);
+        }
+        return rand;
     }
 
     @Override

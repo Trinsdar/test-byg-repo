@@ -1,26 +1,14 @@
 dependencies {
-    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-    // Do NOT use other classes from fabric loader
+    //just to prevent error saying fabric installer not found
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    // this is ok because the biome api was ported to forge
-    modCompileOnly "net.fabricmc.fabric-api:fabric-biome-api-v1:${project.fabric_biome_api_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "me.shedaniel:architectury:${rootProject.architectury_version}"
-    compileOnly(project(path: ":forge-wrapper")) {
-        transitive = false
-    }
-}
-
-architectury {
-    common()
-}
-
-minecraft{
-    accessWidener = file('src/main/resources/byg.aw')
 }
 
 java {
     withSourcesJar()
+}
+
+architectury {
+    common()
 }
 
 publishing {

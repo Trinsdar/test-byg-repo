@@ -1,6 +1,7 @@
 package corgiaoc.byg.common.properties.blocks.nether.warped;
 
 import corgiaoc.byg.core.BYGBlocks;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -51,16 +52,19 @@ public class WarpedCactusBlock extends Block {
 
             if (i < 3) {
                 int j = state.getValue(AGE);
-                if (j == 15) {
-                    worldIn.setBlockAndUpdate(blockpos, this.defaultBlockState());
-                    BlockState blockstate = state.setValue(AGE, Integer.valueOf(0));
-                    worldIn.setBlock(pos, blockstate, 4);
-                    blockstate.neighborChanged(worldIn, blockpos, this, pos, false);
-                } else {
-                    worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
+                if (!Platform.isForge() || net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
+                    if (j == 15) {
+                        worldIn.setBlockAndUpdate(blockpos, this.defaultBlockState());
+                        BlockState blockstate = state.setValue(AGE, Integer.valueOf(0));
+                        worldIn.setBlock(pos, blockstate, 4);
+                        blockstate.neighborChanged(worldIn, blockpos, this, pos, false);
+                    } else {
+                        worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
+                    }
+                    if (Platform.isForge()) {
+                        net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                    }
                 }
-                //todo abstract this
-                //net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
             }
         }
     }

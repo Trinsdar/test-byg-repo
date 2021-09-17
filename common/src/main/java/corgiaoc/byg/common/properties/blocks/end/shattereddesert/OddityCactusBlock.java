@@ -1,6 +1,7 @@
 package corgiaoc.byg.common.properties.blocks.end.shattereddesert;
 
 import corgiaoc.byg.core.BYGBlocks;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -64,7 +65,7 @@ public class OddityCactusBlock extends Block {
                     worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
                 }
                 //todo abstract this
-                /*if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
+                if(!Platform.isForge() || net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
                     if (j == 15) {
                         worldIn.setBlockAndUpdate(blockpos, this.defaultBlockState());
                         BlockState blockstate = state.setValue(AGE, Integer.valueOf(0));
@@ -73,8 +74,10 @@ public class OddityCactusBlock extends Block {
                     } else {
                         worldIn.setBlock(pos, state.setValue(AGE, Integer.valueOf(j + 1)), 4);
                     }
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
-                }*/
+                    if (Platform.isForge()) {
+                        net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                    }
+                }
             }
         }
     }

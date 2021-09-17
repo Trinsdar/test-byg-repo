@@ -2,6 +2,7 @@ package corgiaoc.byg.common.properties.items;
 
 
 import corgiaoc.byg.core.BYGBlocks;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,14 +57,17 @@ public class BYGLilyItem extends BlockItem {
                 if ((FluidState.getType() == Fluids.WATER || material == Material.ICE) && worldIn.isEmptyBlock(blockpos1)) {
 
                     // special case for handling block placement with water lilies
-                    //todo put this in ExpectPlatformUtils
-                    worldIn.setBlock(blockpos1, BYGBlocks.TINY_LILYPADS.defaultBlockState(), 11);
-                    /*net.minecraftforge.common.util.BlockSnapshot blocksnapshot = net.minecraftforge.common.util.BlockSnapshot.create(worldIn.dimension(), worldIn, blockpos1);
-                    worldIn.setBlock(blockpos1, BYGBlocks.TINY_LILYPADS.defaultBlockState(), 11);
-                    if (net.minecraftforge.event.ForgeEventFactory.onBlockPlace(playerIn, blocksnapshot, net.minecraft.util.Direction.UP)) {
-                        blocksnapshot.restore(true, false);
-                        return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
-                    }*/
+                    if (Platform.isForge()) {
+                        net.minecraftforge.common.util.BlockSnapshot blocksnapshot = net.minecraftforge.common.util.BlockSnapshot.create(worldIn.dimension(), worldIn, blockpos1);
+                        worldIn.setBlock(blockpos1, BYGBlocks.TINY_LILYPADS.defaultBlockState(), 11);
+                        if (net.minecraftforge.event.ForgeEventFactory.onBlockPlace(playerIn, blocksnapshot, Direction.UP)) {
+                            blocksnapshot.restore(true, false);
+                            return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
+                        }
+                    } else {
+                        worldIn.setBlock(blockpos1, BYGBlocks.TINY_LILYPADS.defaultBlockState(), 11);
+                    }
+
 
                     if (playerIn instanceof ServerPlayer) {
                         CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) playerIn, blockpos1, itemstack);
