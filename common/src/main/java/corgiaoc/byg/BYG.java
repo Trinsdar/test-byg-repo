@@ -144,9 +144,14 @@ public class BYG {
                 //todo figure out if I need to translate this weight to a double
                 TheEndBiomes.addBarrensBiome(key, ResourceKey.create(Registry.BIOME_REGISTRY, r.getData()), (((WeightedListEntryAccess)r).getWeight()));
             });
+            if (entries.isEmpty()){
+                TheEndBiomes.addBarrensBiome(key, key, 1.0);
+            }
             ResourceLocation edgeBiome = endBiomeData.getEdgeBiome();
             if (!edgeBiome.equals(BYG.EMPTY)) {
                 TheEndBiomes.addMidlandsBiome(key, ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
+            } else {
+                TheEndBiomes.addMidlandsBiome(key, key, 1.0);
             }
         }));
 

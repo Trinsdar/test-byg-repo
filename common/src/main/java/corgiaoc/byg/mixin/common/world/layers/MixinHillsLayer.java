@@ -44,31 +44,6 @@ public abstract class MixinHillsLayer {
                 l = BuiltinRegistries.BIOME.getId(BYGBiomes.TROPICAL_ISLAND);
             cir.setReturnValue(l);
         }
-        if (BYGBiome.BIOME_TO_HILLS_LIST.size() > 0) {
-            if (rand.nextRandom(3) == 0 || k == 0) {
-                int l = i;
-                ResourceLocation biomeKey = BYG.biomeRegistryAccess.getKey(BYG.biomeRegistryAccess.byId(i));
-                if (biomeKey != null) {
-                    if (BYGBiome.BIOME_TO_HILLS_LIST.containsKey(biomeKey)) {
-                        Biome hill = BYG.biomeRegistryAccess.get(getHillBiomeValue(BYGBiome.BIOME_TO_HILLS_LIST.get(biomeKey), rand));
-                        if (hill != null) {
-                            l = BYG.biomeRegistryAccess.getId(hill);
-                        }
-                    }
-                }
-                cir.setReturnValue(l);
-            }
-        }
-    }
-
-    @Nullable
-    private static ResourceLocation getHillBiomeValue(WeightedList<ResourceLocation> biomeHolder, Context layerRandom) {
-        if (((WeightedListAccess<Biome>) biomeHolder).getEntries().size() > 0) {
-            return LayerRandomWeightedListUtil.getBiomeFromID(biomeHolder, layerRandom);
-        }
-        else {
-            return null;
-        }
     }
 
 

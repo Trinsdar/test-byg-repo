@@ -194,10 +194,10 @@ public class ForgeEntryPoint implements EntryPoint {
     }
 
     //Only for terraforged usage and not player's.
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void registerWorldtype(RegistryEvent.Register<ForgeWorldType> event) {
         event.getRegistry().register(new BYGWorldTypeThatIsntAWorldtype().setRegistryName(new ResourceLocation(BYG.MOD_ID, "world")));
-    }
+    }*/
 
     @SubscribeEvent
     public static void data(GatherDataEvent event) {

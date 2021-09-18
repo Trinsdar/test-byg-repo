@@ -16,17 +16,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DimensionType.class)
 public abstract class MixinDimensionType {
-
-    @Inject(at = @At("HEAD"), method = "defaultNetherGenerator", cancellable = true)
-    private static void netherDimensionBYG(Registry<Biome> registry, Registry<NoiseGeneratorSettings> dimSettings, long seed, CallbackInfoReturnable<ChunkGenerator> cir) {
-        if (BYG.worldConfig().controlNether)
-            cir.setReturnValue(new NoiseBasedChunkGenerator(new BYGNetherBiomeSource(registry, seed), seed, () -> dimSettings.getOrThrow(NoiseGeneratorSettings.NETHER)));
-    }
-
-
-    @Inject(at = @At("HEAD"), method = "defaultEndGenerator", cancellable = true)
-    private static void endDimensionBYG(Registry<Biome> registry, Registry<NoiseGeneratorSettings> dimSettings, long seed, CallbackInfoReturnable<ChunkGenerator> cir) {
-        if (BYG.worldConfig().controlEnd)
-            cir.setReturnValue(new NoiseBasedChunkGenerator(new BYGEndBiomeSource(registry, seed), seed, () -> dimSettings.getOrThrow(NoiseGeneratorSettings.END)));
-    }
 }

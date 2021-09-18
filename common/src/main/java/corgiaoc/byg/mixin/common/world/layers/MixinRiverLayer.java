@@ -17,17 +17,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @SuppressWarnings({"deprecation", "ConstantConditions"})
 @Mixin(RiverMixerLayer.class)
 public abstract class MixinRiverLayer {
-
-    @Inject(at = @At("HEAD"), method = "applyPixel", cancellable = true)
-    private void injectBYGRivers(Context rand, Area area1, Area area2, int x, int z, CallbackInfoReturnable<Integer> cir) {
-        int area1Value = area1.get(((RiverMixerLayer) (Object) this).getParentX(x), ((RiverMixerLayer) (Object) this).getParentY(z));
-        int area2Value = area2.get(((RiverMixerLayer) (Object) this).getParentX(x), ((RiverMixerLayer) (Object) this).getParentY(z));
-
-        if (area2Value == BuiltinRegistries.BIOME.getId(ExpectPlatformUtils.getOrThrow(Biomes.RIVER))) {
-            ResourceLocation area1Location = BYG.biomeRegistryAccess.getKey(BYG.biomeRegistryAccess.byId(area1Value));
-
-            if (BYGBiome.BIOME_TO_RIVER_LIST.containsKey(area1Location))
-                cir.setReturnValue(BYG.biomeRegistryAccess.getId(BYG.biomeRegistryAccess.get(BYGBiome.BIOME_TO_RIVER_LIST.get(area1Location))));
-        }
-    }
 }
