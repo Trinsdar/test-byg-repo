@@ -5,10 +5,12 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -94,5 +96,9 @@ public class ExpectPlatformUtils {
     @ExpectPlatform
     public static Biome getOrThrow(ResourceKey<Biome> key){
         throw new AssertionError();
+    }
+
+    public static boolean forgeEvent(Level level, Entity entity){
+        return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, entity);
     }
 }
