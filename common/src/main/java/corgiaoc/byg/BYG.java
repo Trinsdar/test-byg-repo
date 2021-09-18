@@ -25,16 +25,21 @@ import corgiaoc.byg.common.world.biome.BYGSubBiome;
 import corgiaoc.byg.common.world.dimension.end.BYGEndBiomeSource;
 import corgiaoc.byg.common.world.dimension.nether.BYGNetherBiomeSource;
 import corgiaoc.byg.config.WorldConfig;
+import corgiaoc.byg.config.json.biomedata.BiomeData;
 import corgiaoc.byg.config.json.biomedata.BiomeDataHolders;
+import corgiaoc.byg.config.json.biomedata.WeightedBiomeData;
 import corgiaoc.byg.core.BYGBlocks;
 import corgiaoc.byg.core.world.BYGBiomes;
 import corgiaoc.byg.entrypoint.EntryPoint;
 import corgiaoc.byg.mixin.access.BlockEntityTypeAccess;
 import corgiaoc.byg.mixin.access.WeightedListAccess;
 import corgiaoc.byg.mixin.access.WeightedListEntryAccess;
+import corgiaoc.byg.util.ExpectPlatformUtils;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import me.shedaniel.architectury.platform.Platform;
+import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
+import net.fabricmc.fabric.api.biome.v1.TheEndBiomes;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -51,9 +56,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BYG {
     public static final String MOD_ID = "byg";
@@ -112,12 +121,66 @@ public class BYG {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         handleOverWorldConfig(gson);
         handleOverWorldSubConfig(gson);
+        handleEndConfig(gson);
+        handleNetherConfig(gson);
 
         BlockEntityTypeAccess builderAccess = (BlockEntityTypeAccess)  BlockEntityType.CAMPFIRE;
         Set<Block> validBlocks = new ObjectOpenHashSet<>(builderAccess.getValidBlocks());
         validBlocks.add(BYGBlocks.CRYPTIC_CAMPFIRE);
         validBlocks.add(BYGBlocks.BORIC_CAMPFIRE);
         builderAccess.setValidBlocks(validBlocks);
+    }
+
+    public static void handleEndConfig(Gson gson){
+        BiomeDataHolders.EndBiomeDataHolder endBiomeDataHolder = BYG.getEndData(gson, BYG.CONFIG_PATH.resolve(BYG.MOD_ID + "-end-biomes.json"));
+        Map<ResourceLocation, WeightedBiomeData> endBiomeData1 = endBiomeDataHolder.getEndBiomeData();
+        endBiomeData1.remove(null);
+        endBiomeData1.remove(BYG.EMPTY);
+        endBiomeData1.forEach(((biome, endBiomeData) -> {
+            ResourceKey<Biome> key = ResourceKey.create(Registry.BIOME_REGISTRY, biome);
+            TheEndBiomes.addHighlandsBiome(key, (double) endBiomeData.getWeight() / 5.0);
+            List<WeightedList.WeightedEntry<ResourceLocation>> entries = ((WeightedListAccess<ResourceLocation>) endBiomeData.getSubBiomes()).getEntries();
+            entries.forEach(r -> {
+                //todo figure out if I need to translate this weight to a double
+                TheEndBiomes.addBarrensBiome(key, ResourceKey.create(Registry.BIOME_REGISTRY, r.getData()), (((WeightedListEntryAccess)r).getWeight()));
+            });
+            ResourceLocation edgeBiome = endBiomeData.getEdgeBiome();
+            if (!edgeBiome.equals(BYG.EMPTY)) {
+                TheEndBiomes.addMidlandsBiome(key, ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
+            }
+        }));
+
+        Map<ResourceLocation, WeightedBiomeData> voidBiomeData = endBiomeDataHolder.getVoidBiomeData();
+        voidBiomeData.remove(null);
+        voidBiomeData.remove(BYG.EMPTY);
+        voidBiomeData.forEach(((biome, endBiomeData) -> {
+            TheEndBiomes.addSmallIslandsBiome(ResourceKey.create(Registry.BIOME_REGISTRY, biome), endBiomeData.getWeight());
+        }));
+
+        BiomeDataHolders.EndSubBiomeDataHolder endSubBiomeDataHolder = BYG.getEndSubBiomeData(gson, BYG.CONFIG_PATH.resolve(BYG.MOD_ID + "-end-sub-biomes.json"));
+        Map<ResourceLocation, BiomeData> endSubBiomeData = endSubBiomeDataHolder.getEndSubBiomeData();
+        endSubBiomeData.remove(null);
+        endSubBiomeData.remove(BYG.EMPTY);
+        endSubBiomeData.forEach(((biome, endBiomeData) -> {
+            ResourceLocation edgeBiome = endBiomeData.getEdgeBiome();
+            if (!edgeBiome.equals(BYG.EMPTY)) {
+                TheEndBiomes.addMidlandsBiome(ResourceKey.create(Registry.BIOME_REGISTRY, biome), ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
+            }
+        }));
+
+    }
+
+    public static void handleNetherConfig(Gson gson){
+        BiomeDataHolders.WeightedBiomeDataHolder endBiomeDataHolder = BYG.getNetherData(gson, BYG.CONFIG_PATH.resolve(BYG.MOD_ID + "-nether-biomes.json"));
+        Map<ResourceLocation, WeightedBiomeData> endBiomeData1 = endBiomeDataHolder.getBiomeData();
+        endBiomeData1.remove(null);
+        endBiomeData1.remove(BYG.EMPTY);
+        endBiomeData1.forEach(((biome, weightedBiomeData) -> {
+            ResourceKey<Biome> key = ResourceKey.create(Registry.BIOME_REGISTRY, biome);
+            Biome biome1 = ExpectPlatformUtils.getOrThrow(key);
+            //todo figure out climate parameters
+            //NetherBiomes.addNetherBiome(key, new Biome.ClimateParameters());
+        }));
     }
 
     public static BiomeDataHolders.EndBiomeDataHolder getEndData(Gson gson, Path biomesConfigPath) {

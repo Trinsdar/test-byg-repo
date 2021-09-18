@@ -21,3 +21,9 @@ mandatory = true
 versionRange = "[36.0.4,)"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.byg]]
+modId = "fabric-biome-api"
+mandatory = true
+versionRange = "[1.0.5,)"
+ordering = "NONE"
+side = "BOTH"
