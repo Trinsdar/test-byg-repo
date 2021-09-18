@@ -138,7 +138,7 @@ public class BYG {
         endBiomeData1.remove(BYG.EMPTY);
         endBiomeData1.forEach(((biome, endBiomeData) -> {
             ResourceKey<Biome> key = ResourceKey.create(Registry.BIOME_REGISTRY, biome);
-            TheEndBiomes.addHighlandsBiome(key, (double) endBiomeData.getWeight() / 5.0);
+            TheEndBiomes.addHighlandsBiome(key, endBiomeData.getWeight());
             List<WeightedList.WeightedEntry<ResourceLocation>> entries = ((WeightedListAccess<ResourceLocation>) endBiomeData.getSubBiomes()).getEntries();
             entries.forEach(r -> {
                 //todo figure out if I need to translate this weight to a double
