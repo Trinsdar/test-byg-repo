@@ -37,15 +37,20 @@ import corgiaoc.byg.mixin.access.WeightedListEntryAccess;
 import corgiaoc.byg.util.ExpectPlatformUtils;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import me.shedaniel.architectury.platform.Platform;
+import net.fabricmc.fabric.api.biome.v1.BiomeModification;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.TheEndBiomes;
+import net.fabricmc.fabric.impl.biome.InternalBiomeData;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.biome.VanillaBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.behavior.WeightedList;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.apache.logging.log4j.LogManager;
@@ -142,16 +147,11 @@ public class BYG {
             List<WeightedList.WeightedEntry<ResourceLocation>> entries = ((WeightedListAccess<ResourceLocation>) endBiomeData.getSubBiomes()).getEntries();
             entries.forEach(r -> {
                 //todo figure out if I need to translate this weight to a double
-                TheEndBiomes.addBarrensBiome(key, ResourceKey.create(Registry.BIOME_REGISTRY, r.getData()), (((WeightedListEntryAccess)r).getWeight()));
+                InternalBiomeData.addEndBiomeReplacement(key, ResourceKey.create(Registry.BIOME_REGISTRY, r.getData()), (((WeightedListEntryAccess)r).getWeight()));
             });
-            if (entries.isEmpty()){
-                TheEndBiomes.addBarrensBiome(key, key, 1.0);
-            }
             ResourceLocation edgeBiome = endBiomeData.getEdgeBiome();
             if (!edgeBiome.equals(BYG.EMPTY)) {
                 TheEndBiomes.addMidlandsBiome(key, ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
-            } else {
-                TheEndBiomes.addMidlandsBiome(key, key, 1.0);
             }
         }));
 
@@ -169,7 +169,7 @@ public class BYG {
         endSubBiomeData.forEach(((biome, endBiomeData) -> {
             ResourceLocation edgeBiome = endBiomeData.getEdgeBiome();
             if (!edgeBiome.equals(BYG.EMPTY)) {
-                TheEndBiomes.addMidlandsBiome(ResourceKey.create(Registry.BIOME_REGISTRY, biome), ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
+                TheEndBiomes.addBarrensBiome(ResourceKey.create(Registry.BIOME_REGISTRY, biome), ResourceKey.create(Registry.BIOME_REGISTRY, edgeBiome), 1.0);
             }
         }));
 

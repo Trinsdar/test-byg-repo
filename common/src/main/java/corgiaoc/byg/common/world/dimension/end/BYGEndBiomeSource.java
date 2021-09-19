@@ -146,4 +146,21 @@ public class BYGEndBiomeSource extends BiomeSource {
             }
         }
     }
+
+    public Biome getNoiseBiome2(int x, int y, int z) {
+        int xBitOffset = x >> 2;
+        int zBitOffset = z >> 2;
+        if ((long)xBitOffset * (long)xBitOffset + (long)zBitOffset * (long)zBitOffset <= 4096L) {
+            return biomeRegistry.getOrThrow(Biomes.THE_END);
+        } else {
+            float sampledNoise = TheEndBiomeSource.getHeightValue(this.generator, xBitOffset * 2 + 1, zBitOffset * 2 + 1);
+            if (sampledNoise > 40.0F) {
+                return biomeRegistry.getOrThrow(Biomes.END_HIGHLANDS);
+            } else if (sampledNoise >= 0.0F) {
+                return biomeRegistry.getOrThrow(Biomes.END_MIDLANDS);
+            } else {
+                return sampledNoise < -20.0F ? biomeRegistry.getOrThrow(Biomes.SMALL_END_ISLANDS) : biomeRegistry.getOrThrow(Biomes.END_BARRENS);
+            }
+        }
+    }
 }
